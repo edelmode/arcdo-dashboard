@@ -1,0 +1,27 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Akshar&display=swap');
+
+
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@media (min-width: 767px) and (max-width: 1150px) {
+  .container {
+      padding: 20px;
+  }
+  .table-wrapper {
+      width: 100%;
+      overflow-x: auto;
+  }
+  .table-header, .table-row {
+      display: block;
+      width: 100%;
+  }
+  /* Reduce padding and margin for buttons and input fields */
+  .btn, .input-field {
+      padding: 8px;
+      font-size: 14px;
+  }
+}

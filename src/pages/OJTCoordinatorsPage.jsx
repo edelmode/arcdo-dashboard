@@ -7,7 +7,7 @@ export default function OJTCoordinatorsPage() {
   return (
     <div className="font-montserrat overflow-auto">
         <Navbar />
-        <OJTCoordinators  />
+        <OJTCoordinators />
         <HomeNavbar />
     </div>
   )

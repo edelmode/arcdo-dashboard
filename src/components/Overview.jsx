@@ -110,25 +110,26 @@ const Overview = () => {
      {/* Nature of Businesses and MOA Status */}
 <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
   {/* Bar Chart: Nature of Businesses */}
-  <div className="bg-white shadow rounded-lg p-4 flex flex-col min-h-[300px]">
+  <div className="bg-white shadow rounded-lg p-4 flex flex-col ">
     <h3 className="text-lg font-medium text-gray-800 mb-4">
       Nature of Businesses
     </h3>
-    <div className="flex-grow">
+    <div className="flex-grow flex items-center">
       <Bar data={barData} options={barOptions} />
     </div>
   </div>
 
   {/* Doughnut Chart: MOA Status */}
-  <div className="bg-white shadow rounded-lg p-4 flex flex-col min-h-[300px]">
+  <div className="bg-white shadow rounded-lg p-4 flex flex-col min-h-[100px]">
     <h3 className="text-lg font-medium text-gray-800 mb-4">
       Memorandum of Agreement (MOA) Status
     </h3>
-    <div className="flex-grow flex items-center justify-center">
+    <div className="flex-grow flex justfy-center ml-10 w-64 h-64" >
       <Doughnut data={doughnutData} options={doughnutOptions} />
     </div>
   </div>
 </div>
+
 
 
 

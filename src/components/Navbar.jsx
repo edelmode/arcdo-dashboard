@@ -1,10 +1,9 @@
-import { useState } from 'react';
+
 import { PanelsTopLeft, Star, Sun, RotateCcw, CirclePlus, Search } from 'lucide-react';
 
 
 export default function NavbarTopConfigurationPage() {
     
-
     return (
         <nav className="fixed top-0 w-full flex items-center px-5 sm:px-10 bg-white z-50 ml-[250px]  h-[4rem] max-w-full">
                 

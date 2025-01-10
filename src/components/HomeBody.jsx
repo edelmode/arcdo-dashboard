@@ -2,90 +2,7 @@ import React, { useState } from 'react';
 
 
 const HomeBody = () => {
-    const [isSignInOpen, setIsSignInOpen] = useState(false);
-    const [isSignUpOpen, setIsSignUpOpen] = useState(false);
-    const [isForgotPassOpen, setIsForgotPassOpen] = useState(false);
-    const [isVerificationOpen, setVerificationOpen] = useState(false);
-    const [isResetPass, setResetPassOpen] = useState(false);
-    const [isTermsOpen, setTermsOpen] = useState(false);
-
     
-
-    
-
-    const toggleSignInModal = () => {
-        setIsSignInOpen(!isSignInOpen);
-        setIsSignUpOpen(false);
-        setIsForgotPassOpen(false);
-        setVerificationOpen(false);
-        setResetPassOpen(false);
-        setTermsOpen(false);
-    };
-
-    const toggleSignUpModal = () => {
-        setIsSignUpOpen(!isSignUpOpen);
-        setIsSignInOpen(false);
-        setIsForgotPassOpen(false);
-        setVerificationOpen(false);
-        setResetPassOpen(false);
-        setTermsOpen(false);
-    };
-
-    const toggleForgotPassModal = () => {
-        setIsForgotPassOpen(!isForgotPassOpen);
-        setIsSignInOpen(false);
-        setIsSignUpOpen(false);
-        setVerificationOpen(false);
-        setResetPassOpen(false);
-        setTermsOpen(false);
-    };
-
-    
-
-    const openSignUpModal = () => {
-        setIsSignUpOpen(true);
-        setIsSignInOpen(false);
-        setIsForgotPassOpen(false);
-        setVerificationOpen(false);
-        setResetPassOpen(false);
-        setTermsOpen(false);
-    };
-
-    const openSignInModal = () => {
-        setIsSignInOpen(true);
-        setIsSignUpOpen(false);
-        setIsForgotPassOpen(false);
-        setVerificationOpen(false);
-        setResetPassOpen(false);
-        setTermsOpen(false);
-    };
-
-    const openForgotPassModal = () => {
-        setIsForgotPassOpen(true);
-        setIsSignInOpen(false);
-        setIsSignUpOpen(false);
-        setVerificationOpen(false);
-        setResetPassOpen(false);
-        setTermsOpen(false);
-    };
-
-    const openVerificationModal = () => {
-        setVerificationOpen(true);
-        setIsSignInOpen(false);
-        setIsSignUpOpen(false);
-        setIsForgotPassOpen(false);
-        setResetPassOpen(false);
-        setTermsOpen(false);
-    };
-
-    const openResetPassModal = () => {
-        setResetPassOpen(true);
-        setIsSignInOpen(false);
-        setIsSignUpOpen(false);
-        setIsForgotPassOpen(false);
-        setVerificationOpen(false);
-        setTermsOpen(false);
-    };
 
     
 
@@ -109,20 +26,13 @@ const HomeBody = () => {
                 <div className="mt-5">
                     <button
                         className="flex flex-shrink-0 justify-center text-white items-center gap-2 w-[15rem] lg:h-[3.5rem] rounded-full bg-doggo md:text-xl font-bold md:leading-[100%] hover:bg-yellow hover:transition duration-300 py-4 border-4 border-white"
-                        onClick={toggleSignInModal}
+                        
                     >
-                        Get Started
+                        Get StartedDDD
                     </button>
                 </div>
             </div>
-
-            {isSignInOpen && <SignIn toggleModal={toggleSignInModal} openSignUpModal={openSignUpModal} openForgotPassModal={openForgotPassModal} />}
-            {isSignUpOpen && <SignUp toggleModal={toggleSignUpModal} openSignInModal={openSignInModal} openTermsModal={openTermsModal} />}
-            {isForgotPassOpen && <ForgotPassword toggleModal={toggleForgotPassModal} openSignInModal={openSignInModal} openVerificationModal={openVerificationModal}/>}
-            {isVerificationOpen && <VerificationCard toggleModal={toggleVerificationModal} openSignInModal={openSignInModal} openResetPassModal={openResetPassModal} />}
-            {isTermsOpen && <TermsOfUse toggleModal={toggleTermsModal} openSignUpModal={openSignUpModal}/>}
-            {isResetPass && <ResetPassword toggleModal={toggleResetPassModal} toggleSignInModal={toggleSignInModal} />}
-        </div>
+</div>
     );
 };
 

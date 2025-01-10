@@ -1,32 +1,31 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import LandingPage from "./pages/LandingPage";
-import NavbarTopConfigurationPage from "./components/Navbar"; // Assuming the navbar is in a components folder
-import HomeNavbar from "./components/HomeNavbar"; // Assuming HomeNavbar is another component
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import HomeNavbar from './components/HomeNavbar';
+import LandingPage from './pages/LandingPage';
+import HTEDashboardPage from './pages/HTEDashboardPage';
+import MoasPage from './pages/MoasPage';
 
-function OverviewPage() {
-    return <div>Overview Content</div>;
-}
-
-function HTEPage() {
-    return <div>HTE Content</div>;
-}
+import IndustryPartnersPage from './pages/IndustryPartnersPage';
+import UserPage from './pages/UserPage';
 
 function App() {
-    return (
-        <Router>
-            <NavbarTopConfigurationPage /> {/* Main Navbar always visible */}
-            <Routes>
-                {/* Main Landing Page */}
-                <Route path="/" element={<LandingPage />} />
+  return (
+    <Router>
+      <div className="flex">
+        <HomeNavbar />
+        <main className="flex-grow p-5">
+          <Routes>
+            <Route path="/" element={<LandingPage />} />
+            <Route path="/hte" element={<HTEDashboardPage />} />
+            <Route path="/moas" element={<MoasPage />} />
 
-                {/* Pages connected to the Navbar */}
-                <Route path="/ARCHDO/overview" element={<OverviewPage />} />
-                <Route path="/ARCHDO/hte" element={<HTEPage />} />
-            </Routes>
-
-            <HomeNavbar /> {/* Footer or secondary navigation */}
-        </Router>
-    );
+            <Route path="/partners" element={<IndustryPartnersPage />} />
+            <Route path="/account" element={<UserPage />} />
+          </Routes>
+        </main>
+      </div>
+    </Router>
+  );
 }
 
 export default App;

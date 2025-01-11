@@ -5,9 +5,12 @@ import LandingPage from './pages/LandingPage';
 import HTEDashboardPage from './pages/HTEDashboardPage';
 import MoasPage from './pages/MoasPage';
 import OJTCoordinatorsPage from './pages/OJTCoordinatorsPage';
-
 import IndustryPartnersPage from './pages/IndustryPartnersPage';
 import UserPage from './pages/UserPage';
+import LoginPage from "./pages/LoginPage";
+import ErrorPage from "./pages/ErrorPage";
+import AdminProfilePage from "./pages/AdminProfilePage";
+
 
 function App() {
   return (
@@ -23,6 +26,10 @@ function App() {
 
             <Route path="/partners" element={<IndustryPartnersPage />} />
             <Route path="/account" element={<UserPage />} />
+
+            <Route path="/login" element={<LoginPage />} />
+            <Route path="/admin-profile" element={<AdminProfilePage />} />
+            <Route path="*" element={<ErrorPage />} />
           </Routes>
         </main>
       </div>

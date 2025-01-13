@@ -8,8 +8,8 @@ export default {
     extend: {
       colors: {
         doggo: '#85522D',
-        'yellow': '#F1D04B',
-        bg: '#F4ECE1'
+        hover: '#E5E7EB',
+        bg: '#31111D'
       },
       fontFamily: {
         'montserrat': ['Montserrat', 'serif'], 

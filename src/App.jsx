@@ -29,7 +29,7 @@ function App() {
 
             <Route path="/login" element={<LoginPage />} />
             <Route path="/admin-profile" element={<AdminProfilePage />} />
-            <Route path="*" element={<ErrorPage />} />
+            <Route path="/" element={<ErrorPage />} />
           </Routes>
         </main>
       </div>

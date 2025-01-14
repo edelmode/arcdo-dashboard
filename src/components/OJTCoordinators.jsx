@@ -56,7 +56,7 @@ export default function OJTCoordinators() {
   };
 
   return (
-    <div className="p-5 ml-[260px] mt-8 mr-5 flex flex-col h-[calc(100vh-4.5rem)] overflow-hidden">
+    <div className="p-10 ml-[260px] mt-10 mr-5 flex flex-col h-[calc(100vh-4.5rem)] overflow-hidden">
       {/* Filter Section */}
       <div className="flex items-center space-x-4 mb-5">
         <div>

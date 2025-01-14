@@ -4,6 +4,7 @@ import { Chart as ChartJS, ArcElement, BarElement, Tooltip, Legend, CategoryScal
 import ChartDataLabels from 'chartjs-plugin-datalabels';
 import { CornerRightUp, CornerLeftDown } from 'lucide-react';
 
+
 // Register the required components for Chart.js
 ChartJS.register(ArcElement, BarElement, Tooltip, Legend, CategoryScale, LinearScale, ChartDataLabels);
 
@@ -11,6 +12,8 @@ const Overview = () => {
   const [activeTab, setActiveTab] = useState("HTEs");
   const [clickedBarIndex, setClickedBarIndex] = useState(null);
   const [selectedYear, setSelectedYear] = useState("2020");
+
+  
 
   const data = {
     summaryCards: [
@@ -237,7 +240,7 @@ const Overview = () => {
   };
 
   return (
-<div className="bg-gray-50 ml-[250px] mt-10 p-3 h-screen overflow-hidden">
+<div className="bg-gray-50 ml-[250px] mt-10 p-7 h-screen overflow-hidden">
   {/* Summary Cards */}
   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-1 relative">
     {data.summaryCards.map((card, index) => {

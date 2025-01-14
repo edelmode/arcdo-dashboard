@@ -1,12 +1,23 @@
 import React, { useState } from "react";
 
-const AdminProfile = () => {
+const AdminProfile = ({ isOpen, onClose }) => {
   const [activeTab, setActiveTab] = useState("profile");
 
+  if (!isOpen) return null;
+
   return (
-    <div className="h-screen flex justify-center items-center bg-gray-200">
-      <div className="bg-white w-3/4 shadow-lg rounded-md">
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 p-20 ">
+      <div className="bg-white w-3/4 shadow-lg rounded-md relative">
+        {/* Close Button */}
+        <button
+          onClick={onClose}
+          className="absolute top-2 right-2 text-gray-500 hover:text-gray-800"
+        >
+          &times;
+        </button>
+
         <div className="flex">
+          {/* Sidebar */}
           <div className="w-1/4 bg-gray-100 p-4">
             <button
               onClick={() => setActiveTab("profile")}
@@ -25,6 +36,8 @@ const AdminProfile = () => {
               User Access
             </button>
           </div>
+
+          {/* Main Content */}
           <div className="w-3/4 p-6">
             {activeTab === "profile" && (
               <div>

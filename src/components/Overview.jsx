@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Bar, Doughnut } from "react-chartjs-2";
 import { Chart as ChartJS, ArcElement, BarElement, Tooltip, Legend, CategoryScale, LinearScale } from "chart.js";
 import ChartDataLabels from 'chartjs-plugin-datalabels';
+import { CornerRightUp, CornerLeftDown } from 'lucide-react';
 
 // Register the required components for Chart.js
 ChartJS.register(ArcElement, BarElement, Tooltip, Legend, CategoryScale, LinearScale, ChartDataLabels);
@@ -12,10 +13,10 @@ const Overview = () => {
 
   const data = {
     summaryCards: [
-      { title: "Host Training Establishments (HTEs)", value: "7,265", change: "+11.01%" },
-      { title: "Memorandum of Agreements (MOAs)", value: "3,671", change: "-0.03%" },
+      { title: "Host Training Establishments (HTEs)", value: "7265", change: "+11.01%" },
+      { title: "Memorandum of Agreements (MOAs)", value: "3671", change: "-0.03%" },
       { title: "On-the-Job Training Coordinators", value: "256", change: "+15.03%" },
-      { title: "Industry Partners", value: "2,318", change: "+6.08%" },
+      { title: "Industry Partners", value: "2318", change: "+6.08%" },
     ],
     natureOfBusinesses: [
       { category: "Banking", count: 243000 },
@@ -36,8 +37,33 @@ const Overview = () => {
         { doc: "00001", company: "Christine Brooks", address: "089 Kutch Green Apt. 448", date: "14 Feb 2019", business: "Electric", status: "Completed" },
         { doc: "00002", company: "Rosie Pearson", address: "979 Immanuel Ferry Suite 526", date: "14 Feb 2019", business: "Book", status: "Processing" },
         { doc: "00003", company: "Darrell Caldwell", address: "8587 Frida Ports", date: "14 Feb 2019", business: "Medicine", status: "Rejected" },
+        { doc: "00003", company: "Darrell Caldwell", address: "8587 Frida Ports", date: "14 Feb 2019", business: "Medicine", status: "Rejected" },
+        { doc: "00003", company: "Darrell Caldwell", address: "8587 Frida Ports", date: "14 Feb 2019", business: "Medicine", status: "Rejected" },
+        { doc: "00003", company: "Darrell Caldwell", address: "8587 Frida Ports", date: "14 Feb 2019", business: "Medicine", status: "Rejected" },
+      ],
+      "Industry Partners": [
+        { doc: "00004", company: "Tech Innovators", address: "45 Silicon Valley", date: "10 Mar 2020", business: "Software", status: "Active" },
+        { doc: "00005", company: "Green Solutions", address: "123 Eco Park", date: "20 Jan 2021", business: "Renewables", status: "Inactive" },
+      ],
+      "OJT Coordinators": [
+        { doc: "00006", company: "Alice Johnson", address: "789 Training Ave", date: "05 May 2021", business: "OJT Management", status: "Active" },
+        { doc: "00007", company: "Mark Smith", address: "567 Coordinator Lane", date: "15 Jul 2021", business: "OJT Oversight", status: "Inactive" },
+        { doc: "00003", company: "Darrell Caldwell", address: "8587 Frida Ports", date: "14 Feb 2019", business: "Medicine", status: "Rejected" },
+        { doc: "00003", company: "Darrell Caldwell", address: "8587 Frida Ports", date: "14 Feb 2019", business: "Medicine", status: "Rejected" },
+
       ],
     },
+  };
+
+  const [clickedCard, setClickedCard] = useState(null);
+
+
+  // Function to format large numbers
+  const formatNumber = (num) => {
+    if (num >= 1000) {
+      return (num / 1000) + 'k'; // Format as "200k"
+    }
+    return num;
   };
 
   // Bar Chart Data and Options
@@ -48,7 +74,7 @@ const Overview = () => {
         label: "Nature of Businesses",
         data: data.natureOfBusinesses.map((business) => business.count),
         backgroundColor: data.natureOfBusinesses.map((business, index) =>
-          index === clickedBarIndex ? "#9A3259" : "#E5E7EB"
+          index === clickedBarIndex ? "#31111D" : "#FFD8E4"
         ), // Change color of clicked bar
         barThickness: 70,
         borderRadius: 16,
@@ -57,14 +83,15 @@ const Overview = () => {
           display: (context) => context.dataIndex === clickedBarIndex, // Show label only for the clicked bar
           anchor: "end",
           align: "end",
-          color: "#000",
+          color: "#FFFFFF",
           font: {
             weight: "bold",
           },
           offset: 2, // Adjusted space between the label and the top of the bar
-          backgroundColor: "#9A3259", // Background color for the label
-          padding: 2, // Padding around the label text
+          backgroundColor: "#31111D", // Background color for the label
+          padding: 3, // Padding around the label text
           borderRadius: 5, // Rounded corners for the background
+          formatter: (value) => formatNumber(value), // Format numbers here
         },
       },
     ],
@@ -79,7 +106,6 @@ const Overview = () => {
       datalabels: {
         anchor: "end", // Position the label at the top of the bar
         align: "end",  // Align the label to the end (top) of the bar
-        color: "#000", // Set label color (black in this case)
         font: {
           weight: "bold", // Set font weight for labels
         },
@@ -161,28 +187,114 @@ const Overview = () => {
   };
 
   return (
-    <div className="bg-gray-50 min-h-screen ml-[250px] mt-10 p-4">
-      {/* Summary Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-1">
-        {data.summaryCards.map((card, index) => (
+    <div className="bg-gray-50 ml-[250px] mt-10 p-3 h-screen overflow-hidden">
+  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-1 relative">
+    {data.summaryCards.map((card, index) => {
+      // Determine if the card is in the first or last column
+      const isFirstColumn = index % 4 === 0;
+      const isLastColumn = (index + 1) % 4 === 0;
+
+
+
+      // Calculate Main Campus and Other Campuses
+      const value1 = Math.round(card.value * 0.6); // 60% of the total
+      const value2 = card.value - value1;   // Remaining 40%
+
+      return (
+        <div
+          key={index}
+          className={`bg-white shadow-lg rounded-t-2xl p-4 flex items-center justify-between transform transition-transform duration-300 ${
+            clickedCard === index ? 'scale-150 z-50' : 'scale-100'
+          }`}
+          style={{
+            zIndex: clickedCard === index ? 50 : 1,
+            width: clickedCard === index ? '130%' : '100%',
+            transform:
+              clickedCard === index
+                ? isFirstColumn
+                  ? 'scale(1.4) translateX(15%)'
+                  : isLastColumn
+                  ? 'scale(1.4) translateX(-30%)'
+                  : 'scale(1.4)'
+                : 'scale(1)',
+          }}
+          onClick={() => setClickedCard(clickedCard === index ? null : index)} // Toggle zoom
+        >
           <div
-            key={index}
-            className="bg-white shadow rounded-lg p-2 flex flex-col items-center"
+            className={`flex flex-col transition-all duration-300 ${
+              clickedCard === index ? 'text-lg' : 'text-sm'
+            }`}
           >
-            <h3 className="text-sm font-medium text-gray-600 text-center">
-              {card.title}
-            </h3>
-            <p className="text-2xl font-bold text-gray-800">{card.value}</p>
-            <p
-              className={`text-sm font-medium ${
-                card.change.startsWith("+") ? "text-green-600" : "text-red-600"
+            <h3
+              className={`font-medium text-gray-600 mb-4 ${
+                clickedCard === index ? 'text-xl' : 'text-sm'
               }`}
             >
-              {card.change}
+              {card.title}
+            </h3>
+            <p className={`font-bold text-gray-800 ${clickedCard === index ? 'text-4xl' : 'text-2xl'}`}>
+          {parseFloat(card.value.replace(/,/g, '')).toLocaleString()} {/* Format value with commas */}
+        </p>
+          </div>
+          <div className="flex flex-col items-end">
+            {card.change.startsWith("+") ? (
+              <CornerRightUp
+                className={`transition-transform duration-300 mb-10 ${
+                  clickedCard === index ? 'text-green-600 scale-150' : 'text-green-600'
+                }`}
+              />
+            ) : (
+              <CornerLeftDown
+                className={`transition-transform duration-300 mb-10 ${
+                  clickedCard === index ? 'text-red-600 scale-150' : 'text-red-600'
+                }`}
+              />
+            )}
+            <p
+              className={`transition-all duration-300 font-medium ${
+                card.change.startsWith("+")
+                  ? clickedCard === index
+                    ? ' text-lg'
+                    : ' text-sm'
+                  : clickedCard === index
+                  ? ' text-lg'
+                  : ' text-sm'
+              }`}
+            >
+              {clickedCard === index ? "Total" : card.change}
             </p>
           </div>
-        ))}
-      </div>
+
+         {/* Dropdown */}
+{clickedCard === index && (
+  <div className="absolute top-full left-0 w-full bg-white shadow-lg rounded-b-2xl p-4 z-10">
+    <div className="flex justify-between mb-2 ">
+      <p className="text-2xl font-bold text-gray-600 -mt-5">
+        {parseFloat(value1).toLocaleString()} {/* Main Campus value */}
+      </p>
+      <p className="text-sm text-gray-600 font-medium text-right -mt-5">
+        Main Campus {/* Text */}
+      </p>
+    </div>
+    <div className="flex justify-between">
+      <p className="text-2xl font-bold text-gray-600 ">
+        {parseFloat(value2).toLocaleString()} {/* Other Campuses value */}
+      </p>
+      <p className="text-sm text-gray-600 font-medium text-right">
+        Other Campuses {/* Text */}
+      </p>
+    </div>
+  </div>
+)}
+
+        </div>
+      );
+    })}
+  </div>
+
+
+
+
 
       {/* Nature of Businesses and MOA Status */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-1">
@@ -207,16 +319,17 @@ const Overview = () => {
         </div>
       </div>
 
-      {/* Tab Section */}
-      <div className="mt-6">
-        <div className="flex justify-start mb-4">
-          {["HTEs", "MOAs", "Industry Partners"].map((tab) => (
+      
+       {/* Tabbed Tables */}
+       <div className="bg-white shadow rounded-lg p-4 h-full flex flex-col">
+        <div className="flex space-x-4 border-b border-gray-200 mb-2">
+          {Object.keys(data.tableData).map((tab, index) => (
             <button
-              key={tab}
-              className={`py-2 px-4 text-sm font-medium rounded-md ${
+              key={index}
+              className={`py-2 px-4 text-sm font-medium ${
                 activeTab === tab
-                  ? "bg-blue-600 text-white"
-                  : "text-gray-600"
+                  ? "border-b-2 border-blue-500 text-blue-500"
+                  : "text-gray-500"
               }`}
               onClick={() => setActiveTab(tab)}
             >
@@ -224,31 +337,50 @@ const Overview = () => {
             </button>
           ))}
         </div>
-        <table className="w-full table-auto text-sm">
-          <thead>
-            <tr className="bg-gray-100 text-gray-600">
-              <th className="py-2 px-4">Document No.</th>
+        <div className="flex-1 overflow-auto">
+        <table className="w-full table-auto text-left">
+          <thead className="sticky top-0 bg-white shadow">
+            <tr>
+              <th className="py-2 px-4">Doc #</th>
               <th className="py-2 px-4">Company</th>
               <th className="py-2 px-4">Address</th>
               <th className="py-2 px-4">Date</th>
-              <th className="py-2 px-4">Business</th>
+              <th className="py-2 px-4">Nature of Business</th>
               <th className="py-2 px-4">Status</th>
             </tr>
           </thead>
           <tbody>
             {data.tableData[activeTab].map((row, index) => (
-              <tr key={index} className="border-b border-gray-200">
+              <tr
+                key={index}
+                className="border-b border-gray-200 hover:bg-gray-50"
+              >
                 <td className="py-2 px-4">{row.doc}</td>
                 <td className="py-2 px-4">{row.company}</td>
                 <td className="py-2 px-4">{row.address}</td>
                 <td className="py-2 px-4">{row.date}</td>
                 <td className="py-2 px-4">{row.business}</td>
-                <td className="py-2 px-4">{row.status}</td>
+                <td
+                  className={`py-2 px-4 font-medium ${
+                    row.status === "Completed"
+                      ? "text-green-600"
+                      : row.status === "Processing"
+                      ? "text-orange-600"
+                      : row.status === "Rejected"
+                      ? "text-red-600"
+                      : row.status === "Active"
+                      ? "text-green-600"
+                      : "text-gray-500"
+                  }`}
+                >
+                  {row.status}
+                </td>
               </tr>
             ))}
           </tbody>
         </table>
       </div>
+    </div>
     </div>
   );
 };

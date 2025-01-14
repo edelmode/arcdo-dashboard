@@ -18,6 +18,14 @@ const Overview = () => {
       { title: "On-the-Job Training Coordinators", value: "256", change: "+15.03%" },
       { title: "Industry Partners", value: "2318", change: "+6.08%" },
     ],
+  Industrypartnercard: [
+    { status: "Nature of Business 1", percentage: 52.1, color: "#34C759" },
+    { status: "Nature of Business 2", percentage: 22.8, color: "#6750A4" },
+    { status: "Nature of Business 3", percentage: 13.9, color: "#FF2D55" },
+    { status: "Other", percentage: 11.2, color: "#CE93D8" },
+  ],
+    
+
     natureOfBusinesses: [
       { category: "Banking", count: 243000 },
       { category: "IT", count: 200000 },
@@ -57,6 +65,39 @@ const Overview = () => {
 
   const [clickedCard, setClickedCard] = useState(null);
 
+  const doughnutIndustrycardData = {
+    labels: data.Industrypartnercard.map((status) => `${status.status} ${status.percentage}%`),
+    datasets: [
+      {
+        data: data.Industrypartnercard.map((status) => status.percentage),
+        backgroundColor: data.Industrypartnercard.map((status) => status.color),
+        hoverOffset: 5,
+      },
+    ],
+  };
+
+  const doughnutndustrycardOptions = {
+    maintainAspectRatio: false, // Allow the chart to have custom height and width
+    aspectRatio: 1, // Defines the aspect ratio (1:1 means it's a circle)
+    responsive: true,
+    plugins: {
+      legend: {
+        position: "right", // Place legend to the right
+        labels: {
+          color: "white",
+          usePointStyle: true, // Use circular markers in legends
+          padding: 6, // Adjust padding between legend items
+        },
+      },
+    },
+    elements: {
+      arc: {
+        borderWidth: 7, // Set the border width between segments
+        borderColor: "#0000", // Set the border color between segments
+      },
+    },
+    cutout: '50%',  // Increase to make the doughnut thinner and increase space between slices
+  };
 
   // Function to format large numbers
   const formatNumber = (num) => {
@@ -150,6 +191,8 @@ const Overview = () => {
     },
   };
 
+
+
   // Doughnut Chart Data and Options
   const doughnutData = {
     labels: data.moaStatus.map((status) => `${status.status} ${status.percentage}%`),
@@ -187,23 +230,31 @@ const Overview = () => {
   };
 
   return (
-    <div className="bg-gray-50 ml-[250px] mt-10 p-3 h-screen overflow-hidden">
+<div className="bg-gray-50 ml-[250px] mt-10 p-3 h-screen overflow-hidden">
+  {/* Summary Cards */}
   <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-1 relative">
     {data.summaryCards.map((card, index) => {
       // Determine if the card is in the first or last column
       const isFirstColumn = index % 4 === 0;
       const isLastColumn = (index + 1) % 4 === 0;
 
-
-
       // Calculate Main Campus and Other Campuses
       const value1 = Math.round(card.value * 0.6); // 60% of the total
       const value2 = card.value - value1;   // Remaining 40%
 
+      // Define Gradient Backgrounds
+      const gradientClass = card.title === "Host Training Establishments (HTEs)" || card.title === "On-the-Job Training Coordinators" 
+        ? "bg-gradient-to-b from-[#31111D] to-[#9A3259]"  // HTE and OJT Coordinators
+        : "bg-gradient-to-b from-[#BC407A] to-[#530061]";  // MOAs and Industry Partners
+        
+      const gradientClass2 = card.title === "Host Training Establishments (HTEs)" || card.title === "On-the-Job Training Coordinators" 
+        ? "bg-gradient-to-b from-[#9A3259] to-[#31111D]"  // HTE and OJT Coordinators
+        : "bg-gradient-to-b from-[#530061] to-[#BC407A]";  // MOAs and Industry Partners
+
       return (
         <div
           key={index}
-          className={`bg-white shadow-lg rounded-t-2xl p-4 flex items-center justify-between transform transition-transform duration-300 ${
+          className={` shadow-lg rounded-t-2xl p-4 flex items-center justify-between transform transition-transform duration-300 ${gradientClass} ${
             clickedCard === index ? 'scale-150 z-50' : 'scale-100'
           }`}
           style={{
@@ -226,27 +277,28 @@ const Overview = () => {
             }`}
           >
             <h3
-              className={`font-medium text-gray-600 mb-4 ${
+              className={`font-medium text-white mb-4 ${
                 clickedCard === index ? 'text-xl' : 'text-sm'
               }`}
             >
               {card.title}
             </h3>
-            <p className={`font-bold text-gray-800 ${clickedCard === index ? 'text-4xl' : 'text-2xl'}`}>
-          {parseFloat(card.value.replace(/,/g, '')).toLocaleString()} {/* Format value with commas */}
-        </p>
+            <p className={`font-bold text-white ${clickedCard === index ? 'text-4xl' : 'text-2xl'}`}>
+              {parseFloat(card.value.replace(/,/g, '')).toLocaleString()} {/* Format value with commas */}
+            </p>
           </div>
+          
           <div className="flex flex-col items-end">
             {card.change.startsWith("+") ? (
               <CornerRightUp
                 className={`transition-transform duration-300 mb-10 ${
-                  clickedCard === index ? 'text-green-600 scale-150' : 'text-green-600'
+                  clickedCard === index ? 'text-white scale-150' : 'text-white'
                 }`}
               />
             ) : (
               <CornerLeftDown
                 className={`transition-transform duration-300 mb-10 ${
-                  clickedCard === index ? 'text-red-600 scale-150' : 'text-red-600'
+                  clickedCard === index ? 'text-white scale-150' : 'text-white'
                 }`}
               />
             )}
@@ -254,43 +306,79 @@ const Overview = () => {
               className={`transition-all duration-300 font-medium ${
                 card.change.startsWith("+")
                   ? clickedCard === index
-                    ? ' text-lg'
-                    : ' text-sm'
+                    ? ' text-lg text-white'
+                    : ' text-sm text-white'
                   : clickedCard === index
-                  ? ' text-lg'
-                  : ' text-sm'
+                  ? ' text-lg text-white'
+                  : ' text-sm text-white'
               }`}
             >
               {clickedCard === index ? "Total" : card.change}
             </p>
           </div>
 
-         {/* Dropdown */}
-{clickedCard === index && (
-  <div className="absolute top-full left-0 w-full bg-white shadow-lg rounded-b-2xl p-4 z-10">
-    <div className="flex justify-between mb-2 ">
-      <p className="text-2xl font-bold text-gray-600 -mt-5">
-        {parseFloat(value1).toLocaleString()} {/* Main Campus value */}
-      </p>
-      <p className="text-sm text-gray-600 font-medium text-right -mt-5">
-        Main Campus {/* Text */}
-      </p>
-    </div>
-    <div className="flex justify-between">
-      <p className="text-2xl font-bold text-gray-600 ">
-        {parseFloat(value2).toLocaleString()} {/* Other Campuses value */}
-      </p>
-      <p className="text-sm text-gray-600 font-medium text-right">
-        Other Campuses {/* Text */}
-      </p>
-    </div>
-  </div>
-)}
+          {/* Dropdown for MOAs and Industry Partners */}
+          {clickedCard === index && card.title === "Memorandum of Agreements (MOAs)" && (
+            <div className={`absolute top-full left-0 w-full shadow-lg rounded-b-2xl p-4 z-10 ${gradientClass2}`}>
+              <div className="flex justify-between mb-2">
+                <p className="text-2xl font-bold text-white -mt-5">
+                  {parseFloat(value1).toLocaleString()} {/* HTEs value */}
+                </p>
+                <p className="text-sm text-white font-medium text-right -mt-5">
+                  HTEs {/* Text */}
+                </p>
+              </div>
+              <div className="flex justify-between">
+                <p className="text-2xl font-bold text-white">
+                  {parseFloat(value2).toLocaleString()} {/* Industry Partners value */}
+                </p>
+                <p className="text-sm text-white font-medium text-right">
+                  Industry Partners {/* Text */}
+                </p>
+              </div>
+            </div>
+          )}
 
+          {/* Dropdown for Host Training Establishments (HTEs) */}
+          {clickedCard === index && (card.title === "Host Training Establishments (HTEs)" || card.title === "On-the-Job Training Coordinators") && (
+            <div className={`absolute top-full left-0 w-full shadow-lg rounded-b-2xl p-4 z-10 ${gradientClass2}`}>
+              <div className="flex justify-between mb-2">
+                <p className="text-2xl font-bold text-white -mt-5">
+                  {parseFloat(value1).toLocaleString()} {/* HTEs value */}
+                </p>
+                <p className="text-sm text-white font-medium text-right -mt-5">
+                  Main Campus {/* Text */}
+                </p>
+              </div>
+              <div className="flex justify-between">
+                <p className="text-2xl font-bold text-white">
+                  {parseFloat(value2).toLocaleString()} {/* Other Campuses value */}
+                </p>
+                <p className="text-sm text-white font-medium text-right">
+                  Other Campuses {/* Text */}
+                </p>
+              </div>
+            </div>
+          )}
+
+          {/* Doughnut Chart for Industry Partners */}
+          {clickedCard === index && card.title === "Industry Partners" && (
+            <div className={`absolute top-full left-0 w-full shadow-lg rounded-b-2xl p-4 z-10 ${gradientClass2}`}>
+              <div className="flex justify-between mb-2 -mt-7">
+                <div style={{ height: '150px', width: '100%' }}>
+                  <Doughnut data={doughnutIndustrycardData} options={doughnutndustrycardOptions} />
+                </div>
+              </div>
+            </div>
+          )}
         </div>
       );
     })}
   </div>
+
+
+
+
 
 
 

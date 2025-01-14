@@ -1,12 +1,16 @@
 import React from 'react'
 import HomeNavbar from '../components/HomeNavbar'
-import UserAccount from '../components/UserAccount'
+import Navbar from '../components/Navbar'
+
+
 
 export default function UserPage() {
     return (
       <div className="font-montserrat overflow-auto">
           <HomeNavbar />
-          <UserAccount />
+          <Navbar />
+          
+          
       </div>
     )
   }

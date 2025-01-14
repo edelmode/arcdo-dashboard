@@ -10,6 +10,7 @@ ChartJS.register(ArcElement, BarElement, Tooltip, Legend, CategoryScale, LinearS
 const Overview = () => {
   const [activeTab, setActiveTab] = useState("HTEs");
   const [clickedBarIndex, setClickedBarIndex] = useState(null);
+  const [selectedYear, setSelectedYear] = useState("2020");
 
   const data = {
     summaryCards: [
@@ -56,6 +57,8 @@ const Overview = () => {
       "OJT Coordinators": [
         { doc: "00006", company: "Alice Johnson", address: "789 Training Ave", date: "05 May 2021", business: "OJT Management", status: "Active" },
         { doc: "00007", company: "Mark Smith", address: "567 Coordinator Lane", date: "15 Jul 2021", business: "OJT Oversight", status: "Inactive" },
+        { doc: "00003", company: "Darrell Caldwell", address: "8587 Frida Ports", date: "14 Feb 2019", business: "Medicine", status: "Rejected" },
+        { doc: "00003", company: "Darrell Caldwell", address: "8587 Frida Ports", date: "14 Feb 2019", business: "Medicine", status: "Rejected" },
         { doc: "00003", company: "Darrell Caldwell", address: "8587 Frida Ports", date: "14 Feb 2019", business: "Medicine", status: "Rejected" },
         { doc: "00003", company: "Darrell Caldwell", address: "8587 Frida Ports", date: "14 Feb 2019", business: "Medicine", status: "Rejected" },
 
@@ -227,6 +230,10 @@ const Overview = () => {
       },
     },
     cutout: '40%',  // Increase to make the doughnut thinner and increase space between slices
+  };
+
+  const handleYearChange = (event) => {
+    setSelectedYear(event.target.value);
   };
 
   return (
@@ -408,67 +415,83 @@ const Overview = () => {
       </div>
 
       
-       {/* Tabbed Tables */}
-       <div className="bg-white shadow rounded-lg p-4 h-full flex flex-col">
-        <div className="flex space-x-4 border-b border-gray-200 mb-2">
-          {Object.keys(data.tableData).map((tab, index) => (
-            <button
-              key={index}
-              className={`py-2 px-4 text-sm font-medium ${
-                activeTab === tab
-                  ? "border-b-2 border-blue-500 text-blue-500"
-                  : "text-gray-500"
-              }`}
-              onClick={() => setActiveTab(tab)}
-            >
-              {tab}
-            </button>
-          ))}
-        </div>
-        <div className="flex-1 overflow-auto">
-        <table className="w-full table-auto text-left">
-          <thead className="sticky top-0 bg-white shadow">
-            <tr>
-              <th className="py-2 px-4">Doc #</th>
-              <th className="py-2 px-4">Company</th>
-              <th className="py-2 px-4">Address</th>
-              <th className="py-2 px-4">Date</th>
-              <th className="py-2 px-4">Nature of Business</th>
-              <th className="py-2 px-4">Status</th>
-            </tr>
-          </thead>
-          <tbody>
-            {data.tableData[activeTab].map((row, index) => (
-              <tr
+        {/* Tabbed Tables */}
+      <div className="bg-white shadow rounded-lg p-4 flex h-30 flex-col">
+        {/* Tab Buttons and Year Dropdown Container */}
+        <div className="flex justify-between items-center border-b border-gray-200 mb-2 -mt-2">
+          {/* Tab Buttons */}
+          <div className="flex space-x-4 -mt-5">
+            {Object.keys(data.tableData).map((tab, index) => (
+              <button
                 key={index}
-                className="border-b border-gray-200 hover:bg-gray-50"
+                className={`py-2 px-4 text-sm font-medium ${
+                  activeTab === tab
+                    ? "border-b-2 border-blue-500 text-blue-500"
+                    : "text-gray-500"
+                }`}
+                onClick={() => setActiveTab(tab)}
               >
-                <td className="py-2 px-4">{row.doc}</td>
-                <td className="py-2 px-4">{row.company}</td>
-                <td className="py-2 px-4">{row.address}</td>
-                <td className="py-2 px-4">{row.date}</td>
-                <td className="py-2 px-4">{row.business}</td>
-                <td
-                  className={`py-2 px-4 font-medium ${
-                    row.status === "Completed"
-                      ? "text-green-600"
-                      : row.status === "Processing"
-                      ? "text-orange-600"
-                      : row.status === "Rejected"
-                      ? "text-red-600"
-                      : row.status === "Active"
-                      ? "text-green-600"
-                      : "text-gray-500"
-                  }`}
-                >
-                  {row.status}
-                </td>
-              </tr>
+                {tab}
+              </button>
             ))}
-          </tbody>
-        </table>
+          </div>
+          
+          {/* Year Dropdown */}
+          <select
+            value={selectedYear}
+            onChange={handleYearChange}
+            className="py-2 px-4 mb-3 border rounded-md text-gray-700"
+          >
+            {[2020, 2021, 2022, 2023, 2024, 2025, 2026].map((year) => (
+              <option key={year} value={year}>
+                {year}
+              </option>
+            ))}
+          </select>
+        </div>
+
+        {/* Table */}
+        <div className="flex-1 overflow-auto max-h-60 -mt-5">
+          <table className="w-full table-auto text-left">
+            <thead className="sticky top-0 bg-white shadow">
+              <tr>
+                <th className="py-2 px-4">Doc #</th>
+                <th className="py-2 px-4">Company</th>
+                <th className="py-2 px-4">Address</th>
+                <th className="py-2 px-4">Date</th>
+                <th className="py-2 px-4">Nature of Business</th>
+                <th className="py-2 px-4">Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              {data.tableData[activeTab].map((row, index) => (
+                <tr key={index} className="border-b border-gray-200 hover:bg-gray-50">
+                  <td className="py-2 px-4">{row.doc}</td>
+                  <td className="py-2 px-4">{row.company}</td>
+                  <td className="py-2 px-4">{row.address}</td>
+                  <td className="py-2 px-4">{row.date}</td>
+                  <td className="py-2 px-4">{row.business}</td>
+                  <td
+                    className={`py-2 px-4 font-medium ${
+                      row.status === "Completed"
+                        ? "text-green-600"
+                        : row.status === "Processing"
+                        ? "text-orange-600"
+                        : row.status === "Rejected"
+                        ? "text-red-600"
+                        : row.status === "Active"
+                        ? "text-green-600"
+                        : "text-gray-500"
+                    }`}
+                  >
+                    {row.status}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
-    </div>
     </div>
   );
 };

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-export default function OJTCoordinatorsDashboard() {
+export default function OJTCoordinators() {
   const allCoordinators = [
     { id: "001", name: "John Doe", campus: "Main", contact: "john.doe@example.com", office: "Room 101", assignedStudents: 25, status: "Active" },
     { id: "002", name: "Jane Smith", campus: "West", contact: "jane.smith@example.com", office: "Room 202", assignedStudents: 18, status: "On Leave" },
@@ -56,7 +56,7 @@ export default function OJTCoordinatorsDashboard() {
   };
 
   return (
-    <div className="p-5 ml-[260px] mt-[4.5rem] mr-5 flex flex-col h-[calc(100vh-4.5rem)]">
+    <div className="p-5 ml-[260px] mt-8 mr-5 flex flex-col h-[calc(100vh-4.5rem)] overflow-hidden">
       {/* Filter Section */}
       <div className="flex items-center space-x-4 mb-5">
         <div>
@@ -143,3 +143,5 @@ export default function OJTCoordinatorsDashboard() {
     </div>
   );
 }
+
+

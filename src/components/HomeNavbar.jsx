@@ -20,7 +20,7 @@ export default function HomeNavbar() {
     { name: 'Overview', icon: <ChartPie className="h-5 w-5" />, path: '/' },
     { name: 'HTE', icon: <NotebookTabs className="h-5 w-5" />, path: '/hte' },
     { name: 'MOAs', icon: <FolderClosed className="h-5 w-5" />, path: '/moas' },
-    { name: 'OJT Coordinators', icon: <Contact className="h-5 w-5" />, path: '/coordinators' },
+    { name: 'OJT Coordinators', icon: <Contact className="h-5 w-5" />, path: '/coordinator' },
     { name: 'Industry Partners', icon: <Handshake className="h-5 w-5" />, path: '/partners' },
     { name: 'Account', icon: <User className="h-5 w-5" />, path: '/account' },
   ];
@@ -39,7 +39,7 @@ export default function HomeNavbar() {
 
   return (
     <nav
-      className="fixed top-0 left-0 w-[250px] h-full flex flex-col items-start py-5 px-5 bg-white z-50"
+      className="fixed top-0 left-0 w-[250px] h-full flex flex-col items-start py-5 px-5  z-50 "
       style={{
         boxShadow: '0px 8px 20px rgba(139, 69, 19, .50) solid',
       }}

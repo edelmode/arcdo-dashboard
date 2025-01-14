@@ -5,7 +5,7 @@ import { PanelsTopLeft, Star, Sun, RotateCcw, CirclePlus, Search } from 'lucide-
 export default function NavbarTopConfigurationPage() {
     
     return (
-        <nav className="fixed top-0 w-full flex items-center px-5 sm:px-10  z-50 ml-[250px]  h-[4rem] max-w-full">
+        <nav className="fixed top-0 w-full flex items-center px-5 sm:px-10  z-50 ml-[250px]  h-[4rem] max-w-full overflow-hidden">
                 
             
             <ul className="hidden sm:flex sm:flex-row lg:mr-10 items-center space-x-10">

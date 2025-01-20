@@ -23,47 +23,47 @@ const Overview = () => {
       { title: "Industry Partners", value: "2318", change: "+6.08%" },
     ],
   Industrypartnercard: [
-    { status: "Nature of Business 1", percentage: 52.1, color: "#34C759" },
-    { status: "Nature of Business 2", percentage: 22.8, color: "#6750A4" },
-    { status: "Nature of Business 3", percentage: 13.9, color: "#FF2D55" },
-    { status: "Other", percentage: 11.2, color: "#CE93D8" },
+    { STATUS: "Nature of Business 1", percentage: 52.1, color: "#34C759" },
+    { STATUS: "Nature of Business 2", percentage: 22.8, color: "#6750A4" },
+    { STATUS: "Nature of Business 3", percentage: 13.9, color: "#FF2D55" },
+    { STATUS: "Other", percentage: 11.2, color: "#CE93D8" },
   ],
     
 
     natureOfBusinesses: [
-      { category: "Banking", count: 243000 },
+      { category: "Banking", count: 160000 },
       { category: "IT", count: 200000 },
-      { category: "BPO", count: 180000 },
-      { category: "MFG", count: 160000 },
-      { category: "Corporation", count: 140000 },
+      { category: "BPO", count: 140000 },
+      { category: "MFG", count: 243000  },
+      { category: "Corporation", count: 180000  },
       { category: "Other", count: 100000 },
     ],
-    moaStatus: [
-      { status: "Completed", percentage: 52.1, color: "#34C759" },
-      { status: "Under Review", percentage: 22.8, color: "#FF2D55" },
-      { status: "For Revision", percentage: 13.9, color: "#FFA000" },
-      { status: "Other", percentage: 11.2, color: "#CE93D8" },
+    moaSTATUS: [
+      { STATUS: "Completed", percentage: 52.1, color: "#31111D" },
+      { STATUS: "Under Review", percentage: 22.8, color: "#630F3C" },
+      { STATUS: "For Revision", percentage: 13.9, color: "#7A1642" },
+      { STATUS: "Other", percentage: 11.2, color: " #FF2D55 " },
     ],
     tableData: {
       HTEs: [
-        { doc: "00001", company: "Christine Brooks", address: "089 Kutch Green Apt. 448", date: "14 Feb 2019", business: "Electric", status: "Completed" },
-        { doc: "00002", company: "Rosie Pearson", address: "979 Immanuel Ferry Suite 526", date: "14 Feb 2019", business: "Book", status: "Processing" },
-        { doc: "00003", company: "Darrell Caldwell", address: "8587 Frida Ports", date: "14 Feb 2019", business: "Medicine", status: "Rejected" },
-        { doc: "00003", company: "Darrell Caldwell", address: "8587 Frida Ports", date: "14 Feb 2019", business: "Medicine", status: "Rejected" },
-        { doc: "00003", company: "Darrell Caldwell", address: "8587 Frida Ports", date: "14 Feb 2019", business: "Medicine", status: "Rejected" },
-        { doc: "00003", company: "Darrell Caldwell", address: "8587 Frida Ports", date: "14 Feb 2019", business: "Medicine", status: "Rejected" },
+        { DOC: "00001", COMPANY: "Christine Brooks", ADDRESS: "089 Kutch Green Apt. 448", DATE: "14 Feb 2019", business: "Electric", STATUS: "Completed" },
+        { DOC: "00002", COMPANY: "Rosie Pearson", ADDRESS: "979 Immanuel Ferry Suite 526", DATE: "14 Feb 2019", business: "Book", STATUS: "Processing" },
+        { DOC: "00003", COMPANY: "Darrell Caldwell", ADDRESS: "8587 Frida Ports", DATE: "14 Feb 2019", business: "Medicine", STATUS: "Rejected" },
+        { DOC: "00003", COMPANY: "Darrell Caldwell", ADDRESS: "8587 Frida Ports", DATE: "14 Feb 2019", business: "Medicine", STATUS: "Rejected" },
+        { DOC: "00003", COMPANY: "Darrell Caldwell", ADDRESS: "8587 Frida Ports", DATE: "14 Feb 2019", business: "Medicine", STATUS: "Rejected" },
+        { DOC: "00003", COMPANY: "Darrell Caldwell", ADDRESS: "8587 Frida Ports", DATE: "14 Feb 2019", business: "Medicine", STATUS: "Rejected" },
       ],
-      "Industry Partners": [
-        { doc: "00004", company: "Tech Innovators", address: "45 Silicon Valley", date: "10 Mar 2020", business: "Software", status: "Active" },
-        { doc: "00005", company: "Green Solutions", address: "123 Eco Park", date: "20 Jan 2021", business: "Renewables", status: "Inactive" },
+      "INDUSTRY PARTNERS": [
+        { DOC: "00004", COMPANY: "Tech Innovators", ADDRESS: "45 Silicon Valley", DATE: "10 Mar 2020", business: "Software", STATUS: "Active" },
+        { DOC: "00005", COMPANY: "Green Solutions", ADDRESS: "123 Eco Park", DATE: "20 Jan 2021", business: "Renewables", STATUS: "Inactive" },
       ],
-      "OJT Coordinators": [
-        { doc: "00006", company: "Alice Johnson", address: "789 Training Ave", date: "05 May 2021", business: "OJT Management", status: "Active" },
-        { doc: "00007", company: "Mark Smith", address: "567 Coordinator Lane", date: "15 Jul 2021", business: "OJT Oversight", status: "Inactive" },
-        { doc: "00003", company: "Darrell Caldwell", address: "8587 Frida Ports", date: "14 Feb 2019", business: "Medicine", status: "Rejected" },
-        { doc: "00003", company: "Darrell Caldwell", address: "8587 Frida Ports", date: "14 Feb 2019", business: "Medicine", status: "Rejected" },
-        { doc: "00003", company: "Darrell Caldwell", address: "8587 Frida Ports", date: "14 Feb 2019", business: "Medicine", status: "Rejected" },
-        { doc: "00003", company: "Darrell Caldwell", address: "8587 Frida Ports", date: "14 Feb 2019", business: "Medicine", status: "Rejected" },
+      "OJT COORDINATORS": [
+        { DOC: "00006", COMPANY: "Alice Johnson", ADDRESS: "789 Training Ave", DATE: "05 May 2021", business: "OJT Management", STATUS: "Active" },
+        { DOC: "00007", COMPANY: "Mark Smith", ADDRESS: "567 Coordinator Lane", DATE: "15 Jul 2021", business: "OJT Oversight", STATUS: "Inactive" },
+        { DOC: "00003", COMPANY: "Darrell Caldwell", ADDRESS: "8587 Frida Ports", DATE: "14 Feb 2019", business: "Medicine", STATUS: "Rejected" },
+        { DOC: "00003", COMPANY: "Darrell Caldwell", ADDRESS: "8587 Frida Ports", DATE: "14 Feb 2019", business: "Medicine", STATUS: "Rejected" },
+        { DOC: "00003", COMPANY: "Darrell Caldwell", ADDRESS: "8587 Frida Ports", DATE: "14 Feb 2019", business: "Medicine", STATUS: "Rejected" },
+        { DOC: "00003", COMPANY: "Darrell Caldwell", ADDRESS: "8587 Frida Ports", DATE: "14 Feb 2019", business: "Medicine", STATUS: "Rejected" },
 
       ],
     },
@@ -72,11 +72,11 @@ const Overview = () => {
   const [clickedCard, setClickedCard] = useState(null);
 
   const doughnutIndustrycardData = {
-    labels: data.Industrypartnercard.map((status) => `${status.status} ${status.percentage}%`),
+    labels: data.Industrypartnercard.map((STATUS) => `${STATUS.STATUS} ${STATUS.percentage}%`),
     datasets: [
       {
-        data: data.Industrypartnercard.map((status) => status.percentage),
-        backgroundColor: data.Industrypartnercard.map((status) => status.color),
+        data: data.Industrypartnercard.map((STATUS) => STATUS.percentage),
+        backgroundColor: data.Industrypartnercard.map((STATUS) => STATUS.color),
         hoverOffset: 5,
       },
     ],
@@ -134,10 +134,10 @@ const Overview = () => {
           font: {
             weight: "bold",
           },
-          offset: 2, // Adjusted space between the label and the top of the bar
+          offset: 4, // Adjusted space between the label and the top of the bar
           backgroundColor: "#31111D", // Background color for the label
-          padding: 3, // Padding around the label text
-          borderRadius: 5, // Rounded corners for the background
+          padding: 8, // Padding around the label text
+          borderRadius: 20, // Rounded corners for the background
           formatter: (value) => formatNumber(value), // Format numbers here
         },
       },
@@ -155,9 +155,12 @@ const Overview = () => {
         align: "end",  // Align the label to the end (top) of the bar
         font: {
           weight: "bold", // Set font weight for labels
+          size: 20, // Set font size for labels 
         },
+       
         backgroundColor: "#FF6347", // Background color for the label
         borderRadius: 5, // Rounded corners for the background
+        
       },
     },
     scales: {
@@ -183,8 +186,8 @@ const Overview = () => {
     },
     layout: {
       padding: {
-        top: 10,
-        bottom: 10,
+        top: 40,
+        bottom: 3,
         left: 10,
         right: 10,
       },
@@ -201,11 +204,11 @@ const Overview = () => {
 
   // Doughnut Chart Data and Options
   const doughnutData = {
-    labels: data.moaStatus.map((status) => `${status.status} ${status.percentage}%`),
+    labels: data.moaSTATUS.map((STATUS) => `${STATUS.STATUS} ${STATUS.percentage}%`),
     datasets: [
       {
-        data: data.moaStatus.map((status) => status.percentage),
-        backgroundColor: data.moaStatus.map((status) => status.color),
+        data: data.moaSTATUS.map((STATUS) => STATUS.percentage),
+        backgroundColor: data.moaSTATUS.map((STATUS) => STATUS.color),
         hoverOffset: 5,
       },
     ],
@@ -272,12 +275,12 @@ const Overview = () => {
             width: clickedCard === index ? '130%' : '100%',
             transform:
               clickedCard === index
-                ? isFirstColumn
-                  ? 'scale(1.4) translateX(15%)'
-                  : isLastColumn
-                  ? 'scale(1.4) translateX(-30%)'
-                  : 'scale(1.4)'
-                : 'scale(1)',
+              ? isFirstColumn
+              ? 'scale(1.4) translateX(15%) translateY(15%)'
+              : isLastColumn
+              ? 'scale(1.4) translateX(-30%) translateY(15%)'
+              : 'scale(1.4) translateY(15%)'
+            : 'scale(1)',
           }}
           onClick={() => setClickedCard(clickedCard === index ? null : index)} // Toggle zoom
         >
@@ -394,11 +397,11 @@ const Overview = () => {
 
 
 
-      {/* Nature of Businesses and MOA Status */}
+      {/* Nature of Businesses and MOA STATUS */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-1">
         {/* Bar Chart: Nature of Businesses */}
-        <div className="bg-white shadow rounded-lg p-2 flex flex-col min-h-[50px] mb-1">
-          <h3 className="text-lg font-medium text-gray-800 mb-1 text-center">
+        <div className="bg-white shadow rounded-lg p-2 flex flex-col min-h-[40px] ">
+          <h3 className="text-lg font-medium text-gray-800 p-5">
             Nature of Businesses
           </h3>
           <div className="h-[300px]">
@@ -406,10 +409,10 @@ const Overview = () => {
           </div>
         </div>
 
-        {/* Doughnut Chart: MOA Status */}
+        {/* Doughnut Chart: MOA STATUS */}
         <div className="bg-white shadow rounded-lg p-2 flex flex-col min-h-[50px] mb-1">
-          <h3 className="text-lg font-medium text-gray-800 mb-1 text-center">
-            Memorandum of Agreement (MOA) Status
+          <h3 className="text-lg font-medium text-gray-800 p-5">
+            Memorandum of Agreement (MOA) STATUS
           </h3>
           <div style={{ height: '300px', width: '100%' }}>
             <Doughnut data={doughnutData} options={doughnutOptions} />
@@ -454,40 +457,40 @@ const Overview = () => {
         </div>
 
         {/* Table */}
-        <div className="flex-1 overflow-auto max-h-60 -mt-5">
-          <table className="w-full table-auto text-left">
+        <div className="flex-1 overflow-auto max-h-60 -mt-5 ">
+          <table className="w-full table-auto text-left ">
             <thead className="sticky top-0 bg-white shadow">
-              <tr>
-                <th className="py-2 px-4">Doc #</th>
-                <th className="py-2 px-4">Company</th>
-                <th className="py-2 px-4">Address</th>
-                <th className="py-2 px-4">Date</th>
-                <th className="py-2 px-4">Nature of Business</th>
-                <th className="py-2 px-4">Status</th>
+              <tr  className="border-b border-gray-200">
+                <th className="py-2 px-4">DOC #</th>
+                <th className="py-2 px-4">COMPANY</th>
+                <th className="py-2 px-4">ADDRESS</th>
+                <th className="py-2 px-4">DATE</th>
+                <th className="py-2 px-4">NATURE OF BUSINESS</th>
+                <th className="py-2 px-4">STATUS</th>
               </tr>
             </thead>
             <tbody>
               {data.tableData[activeTab].map((row, index) => (
-                <tr key={index} className="border-b border-gray-200 hover:bg-gray-50">
-                  <td className="py-2 px-4">{row.doc}</td>
-                  <td className="py-2 px-4">{row.company}</td>
-                  <td className="py-2 px-4">{row.address}</td>
-                  <td className="py-2 px-4">{row.date}</td>
+                <tr key={index} className="border-b border-gray-200 hover:bg-gray-50 text-center">
+                  <td className="py-2 px-4">{row.DOC}</td>
+                  <td className="py-2 px-4">{row.COMPANY}</td>
+                  <td className="py-2 px-4">{row.ADDRESS}</td>
+                  <td className="py-2 px-4">{row.DATE}</td>
                   <td className="py-2 px-4">{row.business}</td>
                   <td
-                    className={`py-2 px-4 font-medium ${
-                      row.status === "Completed"
-                        ? "text-green-600"
-                        : row.status === "Processing"
-                        ? "text-orange-600"
-                        : row.status === "Rejected"
-                        ? "text-red-600"
-                        : row.status === "Active"
-                        ? "text-green-600"
-                        : "text-gray-500"
+                    className={`py-2 px-4 text-center rounded-full font-normal ${
+                      row.STATUS === "Completed"
+                        ? "text-green-600 bg-green-100 inline-block py-1 mt-1 mb-2"
+                        : row.STATUS === "Processing"
+                        ? "text-orange-600 bg-orange-100 inline-block py-1 mt-1 mb-2"
+                        : row.STATUS === "Rejected"
+                        ? "text-red-600 bg-red-100 inline-block py-1 mt-1 mb-2"
+                        : row.STATUS === "Active"
+                        ? "text-green-600 bg-green-100 inline-block py-1 mt-1 mb-2"
+                        : "text-gray-500 bg-gray-100 inline-block py-1 mt-1 mb-2"
                     }`}
                   >
-                    {row.status}
+                    {row.STATUS}
                   </td>
                 </tr>
               ))}

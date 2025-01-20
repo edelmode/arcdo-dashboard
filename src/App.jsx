@@ -15,13 +15,13 @@ function App() {
   return (
     <Router>
           <Routes>
-            <Route path="/" element={<OverviewPage />} />
+            <Route path="/" element={<LandingPage />} />
             <Route path="/hte" element={<HTEDashboardPage />} />
             <Route path="/moas" element={<MoasPage />} />
-            <Route path="/coordinator" element={<OJTCoordinatorsPage />} />
-            <Route path="/partners" element={<IndustryPartnersPage />} />
-            <Route path="/account" element={<UserPage />} />
-            <Route path="/overviewpage" element={<OverviewPage />} />
+            <Route path="/OJT coordinators" element={<OJTCoordinatorsPage />} />
+            <Route path="/Industry partners" element={<IndustryPartnersPage />} />
+            <Route path="/Admin account" element={<UserPage />} />
+            <Route path="/overview" element={<OverviewPage />} />
             <Route path="/login" element={<LandingPage />} />
             <Route path="/adminprofile" element={<AdminProfile />} />
           </Routes>

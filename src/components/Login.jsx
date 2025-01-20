@@ -6,7 +6,7 @@ const Login = () => {
     const navigate = useNavigate(); // Initialize navigate
 
     const handleOverviewPageClick = () => {
-        navigate("/overviewpage");  
+        navigate("/overview");  
     };
 
     
@@ -18,7 +18,7 @@ const Login = () => {
         <p className="text-center text-gray-600 mb-6">Please enter your email and password to continue</p>
         <form>
           <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-700">Email address:</label>
+            <label className="block text-sm font-medium text-gray-700">Email address</label>
             <input
               type="email"
               placeholder="sample@gmail.com"
@@ -26,7 +26,9 @@ const Login = () => {
             />
           </div>
           <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-700">Password:</label>
+            <label className=" text-sm font-medium text-gray-700 flex justify-between">Password
+            <a href="#" className="text-sm text-blue-500 hover:underline">Forget Password?</a>
+            </label>
             <input
               type="password"
               placeholder="********"
@@ -38,7 +40,7 @@ const Login = () => {
               <input type="checkbox" className="mr-2" />
               Remember Password
             </label>
-            <a href="#" className="text-sm text-blue-500 hover:underline">Forget Password?</a>
+            
           </div>
           <button
             type="submit"

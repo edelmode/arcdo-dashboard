@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, NavLink } from "react-router-dom";
 import { ChartPie, FolderClosed, User, NotebookTabs, Contact, Handshake, LogOut } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import AdminProfile from "./AdminProfile"; // Import the modal component
 
 export default function HomeNavbar() {
   const location = useLocation();
-  const [activeMenu, setActiveMenu] = useState("Overview");
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isModalOpen, setModalOpen] = useState(false); // Modal state
 
@@ -17,20 +16,13 @@ export default function HomeNavbar() {
   };
 
   const menuItems = [
-    { name: "Overview", icon: <ChartPie className="h-5 w-5" />, path: "/" },
-    { name: "HTE", icon: <NotebookTabs className="h-5 w-5" />, path: "/hte" },
+    { name: "Overview", icon: <ChartPie className="h-5 w-5" />, path: "/overview" },
+    { name: "HTEs", icon: <NotebookTabs className="h-5 w-5" />, path: "/hte" },
     { name: "MOAs", icon: <FolderClosed className="h-5 w-5" />, path: "/moas" },
-    { name: "OJT Coordinators", icon: <Contact className="h-5 w-5" />, path: "/coordinator" },
-    { name: "Industry Partners", icon: <Handshake className="h-5 w-5" />, path: "/partners" },
-    { name: "Account", icon: <User className="h-5 w-5" />, path: "/account" },
+    { name: "OJT Coordinators", icon: <Contact className="h-5 w-5" />, path: "/OJT coordinators" },
+    { name: "Industry Partners", icon: <Handshake className="h-5 w-5" />, path: "/Industry partners" },
+    { name: "Account", icon: <User className="h-5 w-5" />, path: "/Admin account" },
   ];
-
-  useEffect(() => {
-    const currentItem = menuItems.find((item) => item.path === location.pathname);
-    if (currentItem) {
-      setActiveMenu(currentItem.name);
-    }
-  }, [location, menuItems]);
 
   const toggleDropdown = () => {
     setIsDropdownOpen(!isDropdownOpen);
@@ -51,15 +43,16 @@ export default function HomeNavbar() {
       <ul className="flex flex-col space-y-2 mt-5 w-full">
         {menuItems.map((item) => (
           <li key={item.name} className="w-full">
-            <Link
+            <NavLink
               to={item.path}
-              className={`flex items-center px-2 py-3 rounded-2xl w-full ${
-                activeMenu === item.name ? "bg-gray-300 text-black" : "hover:bg-gray-200"
-              } transition duration-300`}
+              className={({ isActive }) =>
+                `flex items-center px-2 py-3 rounded-2xl w-full ${
+                  isActive ? "bg-gray-300 text-black" : "hover:bg-gray-200"
+                } transition duration-300`}
             >
               <div className="bg-gray-300 p-2 rounded-lg mr-3">{item.icon}</div>
               <span className="text-sm font-medium">{item.name}</span>
-            </Link>
+            </NavLink>
           </li>
         ))}
       </ul>

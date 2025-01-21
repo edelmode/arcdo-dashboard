@@ -23,9 +23,9 @@ const Overview = () => {
       { title: "Industry Partners", value: "2318", change: "+6.08%" },
     ],
   Industrypartnercard: [
-    { STATUS: "Nature of Business 1", percentage: 52.1, color: "#34C759" },
-    { STATUS: "Nature of Business 2", percentage: 22.8, color: "#6750A4" },
-    { STATUS: "Nature of Business 3", percentage: 13.9, color: "#FF2D55" },
+    { STATUS: "NOB 1", percentage: 52.1, color: "#34C759" },
+    { STATUS: "NOB 2", percentage: 22.8, color: "#6750A4" },
+    { STATUS: "NOB 3", percentage: 13.9, color: "#FF2D55" },
     { STATUS: "Other", percentage: 11.2, color: "#CE93D8" },
   ],
     
@@ -39,7 +39,7 @@ const Overview = () => {
       { category: "Other", count: 100000 },
     ],
     moaSTATUS: [
-      { STATUS: "Completed", percentage: 52.1, color: "#31111D" },
+      { STATUS: "Completed", percentage: 52.1, color: "#31111D"},
       { STATUS: "Under Review", percentage: 22.8, color: "#630F3C" },
       { STATUS: "For Revision", percentage: 13.9, color: "#7A1642" },
       { STATUS: "Other", percentage: 11.2, color: " #FF2D55 " },
@@ -226,6 +226,7 @@ const Overview = () => {
           padding: 15, // Adjust padding between legend items
           font: {
             weight: "bold",
+            size: 10, // Set font size for legend items
           },
         },
       },
@@ -377,7 +378,7 @@ const Overview = () => {
           {/* Doughnut Chart for Industry Partners */}
           {clickedCard === index && card.title === "Industry Partners" && (
             <div className={`absolute top-full left-0 w-full shadow-lg rounded-b-2xl p-4 z-10 ${gradientClass2}`}>
-              <div className="flex justify-between mb-2 -mt-7">
+              <div className="flex justify-between mb-2 -mt-5">
                 <div style={{ height: '150px', width: '100%' }}>
                   <Doughnut data={doughnutIndustrycardData} options={doughnutndustrycardOptions} />
                 </div>
@@ -432,7 +433,7 @@ const Overview = () => {
                 key={index}
                 className={`py-2 px-4 text-sm font-medium ${
                   activeTab === tab
-                    ? "border-b-2 border-blue-500 text-blue-500"
+                    ? "border-b-2 border-red-900 text-red-900"
                     : "text-gray-500"
                 }`}
                 onClick={() => setActiveTab(tab)}
@@ -446,7 +447,7 @@ const Overview = () => {
           <select
             value={selectedYear}
             onChange={handleYearChange}
-            className="py-2 px-4 mb-3 border rounded-md text-gray-700"
+            className="py-2 px-4 mb-3 border rounded-md text-gray-700 hover:border-red-500 focus:outline-none focus:ring-2 focus:ring-red-900 focus:border-red-900"
           >
             {[2020, 2021, 2022, 2023, 2024, 2025, 2026].map((year) => (
               <option key={year} value={year}>
@@ -458,7 +459,7 @@ const Overview = () => {
 
         {/* Table */}
         <div className="flex-1 overflow-auto max-h-60 -mt-5 ">
-          <table className="w-full table-auto text-left ">
+          <table className="w-full table-auto text-center ">
             <thead className="sticky top-0 bg-white shadow">
               <tr  className="border-b border-gray-200">
                 <th className="py-2 px-4">DOC #</th>

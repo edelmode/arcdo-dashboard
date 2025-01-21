@@ -4,7 +4,7 @@ import Navbar from "../components/Navbar"
 
 export default function HTEDashboardPage() {
     return (
-      <div className="font-montserrat overflow-auto h-auto">
+      <div className="font-montserrat overflow-hidden h-screen">
         <HomeNavbar />
         <HTEDashboard />
         <Navbar />

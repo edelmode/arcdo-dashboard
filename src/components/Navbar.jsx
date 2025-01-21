@@ -1,6 +1,7 @@
 import { PanelsTopLeft, Star, Sun, RotateCcw, CirclePlus, Search } from 'lucide-react';
 import { Link, useLocation } from 'react-router-dom';
 
+
 export default function NavbarTopConfigurationPage() {
     const location = useLocation();
 

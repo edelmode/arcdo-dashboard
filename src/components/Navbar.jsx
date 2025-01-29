@@ -1,76 +1,149 @@
-import { PanelsTopLeft, Star, Sun, RotateCcw, CirclePlus, Search } from 'lucide-react';
-import { Link, useLocation } from 'react-router-dom';
-
+import React, { useState, useRef, useEffect } from "react";
+import {
+  Sun,
+  RotateCcw,
+  CirclePlus,
+  Search,
+  Settings,
+  PanelsTopLeft,
+} from "lucide-react";
+import { useLocation } from "react-router-dom";
 
 export default function NavbarTopConfigurationPage() {
-    const location = useLocation();
+  const location = useLocation();
+  const [isSettingsMenuOpen, setIsSettingsMenuOpen] = useState(false);
+  const [isSearchOpen, setIsSearchOpen] = useState(false); // For controlling the search bar visibility
+  const settingsMenuRef = useRef(null); // Reference to the settings menu
 
-    // Extract page names from location.pathname
-    const pathSegments = location.pathname.split("/").filter(Boolean);
-    const defaultPage = "ARCDO"; // Default page name
-    const currentPage = pathSegments.length > 0 ? pathSegments[pathSegments.length - 1].toUpperCase() : '';
+  // Extract page names from location.pathname
+  const pathSegments = location.pathname.split("/").filter(Boolean);
+  const defaultPage = "ARCDO"; // Default page name
+  const currentPage =
+    pathSegments.length > 0 ? pathSegments[pathSegments.length - 1].toUpperCase() : "";
 
-    return (
-        <nav className="fixed bg-white top-0 flex items-center px-5 sm:px-10 z-50 ml-[250px] h-[4rem] w-screen">
-            {/* Address Bar */}
-            
+  // Close the settings menu when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (settingsMenuRef.current && !settingsMenuRef.current.contains(event.target)) {
+        setIsSettingsMenuOpen(false);
+      }
+    };
 
-            <ul className="hidden sm:flex sm:flex-row lg:mr-10 items-center space-x-10">
+    document.addEventListener("mousedown", handleClickOutside);
+
+    // Clean up the event listener
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
+  return (
+    <nav className="fixed bg-white top-0 flex items-center px-3 sm:px-10 z-50 h-[4rem] w-full shadow-md">
+      {/* Address Bar */}
+      <div
+        className={`flex items-center text-sm font-medium text-gray-700 ${
+          currentPage ? "ml-16 sm:ml-[250px] mr-2 sm:mr-0" : "ml-16 sm:ml-0 mr-2 sm:mr-0"
+        }`}
+      >
+        <span className="mr-2">{decodeURIComponent(defaultPage)}</span>
+        {currentPage && (
+          <>
+            <span className="text-gray-500">/</span>
+            <span className="ml-2 font-bold">{decodeURIComponent(currentPage)}</span>
+          </>
+        )}
+      </div>
+
+      {/* Right side */}
+      <div className="ml-auto flex items-center">
+        {/* Search Bar for Desktop */}
+        <div className="hidden lg:flex items-center rounded-2xl border border-gray-300 mr-5">
+          <Search
+            className="h-5 w-5 mr-2 text-black ml-2 hover:text-red-800 transition duration-300"
+            onClick={() => setIsSearchOpen(!isSearchOpen)} // Toggle the search visibility
+          />
+          {isSearchOpen && (
+            <input
+              type="text"
+              placeholder="Search..."
+              className="px-4 py-2 rounded-2xl text-md text-black focus:outline-none focus:ring-2 focus:ring-red-800-400"
+            />
+          )}
+        </div>
+
+        {/* Icons for Desktop */}
+        <ul className="hidden lg:flex items-center space-x-5">
+          <li>
+            <button className="text-md text-black hover:text-red-800 transition duration-300">
+              <Sun className="h-5 w-5" />
+            </button>
+          </li>
+          <li>
+            <button className="text-md text-black hover:text-red-800 transition duration-300">
+              <RotateCcw className="h-5 w-5" />
+            </button>
+          </li>
+          <li>
+            <button className="text-md text-black hover:text-red-800 transition duration-300">
+              <CirclePlus className="h-5 w-5" />
+            </button>
+          </li>
+        </ul>
+
+        {/* Settings Menu for Small Devices */}
+        <div className="lg:hidden">
+          <button
+            onClick={() => setIsSettingsMenuOpen(!isSettingsMenuOpen)}
+            className="text-md text-black hover:text-red-800 transition duration-300"
+          >
+            <Settings className="h-6 w-6" />
+          </button>
+          {isSettingsMenuOpen && (
+            <div
+              ref={settingsMenuRef} // Attach the reference to the settings menu
+              className="absolute right-3 top-12 bg-white rounded-lg shadow-lg p-3"
+            >
+              <ul className="space-y-3">
                 <li>
-                    <button className="text-md text-black hover:text-red-800 hover:transition duration-300">
-                        <PanelsTopLeft className="h-5 w-5 mr-2" />
-                    </button>
+                  <button className="flex items-center text-black hover:text-red-800 transition duration-300">
+                    <Sun className="h-5 w-5 mr-2" />
+                    <span>Light Mode</span>
+                  </button>
                 </li>
                 <li>
-                    <button className="text-md text-black hover:text-red-800 hover:transition duration-300">
-                        <Star className="h-5 w-5 mr-2" />
-                    </button>
-                </li>
-
-                <div className="flex items-center text-sm font-medium text-gray-700">
-                    <span className="mr-2">{decodeURIComponent(defaultPage)}</span>
-                    {currentPage && (
-                        <>
-                            <span className="text-gray-500">/</span>
-                            <span className="ml-2 font-bold">{decodeURIComponent(currentPage)}</span>
-                        </>
-                    )}
-                </div>
-
-              
-            </ul>
-
-                {/* Right side (Search bar and icons) */}
-                <ul className="flex items-center space-x-10" style={{ marginLeft: 'auto', marginRight: '250px' }}> {/* Custom margin for spacing */}
-                {/* Search Bar */}
-                <li className="flex items-center rounded-2xl border border-gray-300">
-                    <div className="flex items-center">
-                        <Search className="h-5 w-5 mr-2 text-black ml-2 hover:text-red-800 hover:transition duration-300" />
-                        <input
-                            type="text"
-                            placeholder="Search..."
-                            className="px-4 py-2 ml-2 rounded-2xl text-md text-black focus:outline-none focus:ring-2 focus:ring-red-800-400"
-                        />
-                    </div>
-                </li>
-                
-
-                <li>
-                    <button className="text-md text-black hover:text-red-800 hover:transition duration-300">
-                        <Sun className="h-5 w-5 mr-2" />
-                    </button>
+                  <button className="flex items-center text-black hover:text-red-800 transition duration-300">
+                    <RotateCcw className="h-5 w-5 mr-2" />
+                    <span>Reset</span>
+                  </button>
                 </li>
                 <li>
-                    <button className="text-md text-black hover:text-red-800 hover:transition duration-300">
-                        <RotateCcw className="h-5 w-5 mr-2" />
-                    </button>
+                  <button className="flex items-center text-black hover:text-red-800 transition duration-300">
+                    <CirclePlus className="h-5 w-5 mr-2" />
+                    <span>Add Item</span>
+                  </button>
                 </li>
-                <li className="relative">
-                    <button className="text-md text-black hover:text-red-800">
-                        <CirclePlus className="h-5 w-5 mr-2" />
-                    </button>
+                {/* Search icon inside settings */}
+                <li>
+                  <button
+                    className="flex items-center text-black hover:text-red-800 transition duration-300"
+                    onClick={() => setIsSearchOpen(!isSearchOpen)} // Toggle search visibility on click
+                  >
+                    <Search className="h-5 w-5 mr-2" />
+                    <span>Search</span>
+                  </button>
+                  {isSearchOpen && (
+                    <input
+                      type="text"
+                      placeholder="Search..."
+                      className="mt-2 px-4 py-2 rounded-2xl text-md text-black focus:outline-none focus:ring-2 focus:ring-red-800-400"
+                    />
+                  )}
                 </li>
-            </ul>
-        </nav>
-    );
+              </ul>
+            </div>
+          )}
+        </div>
+      </div>
+    </nav>
+  );
 }

@@ -12,6 +12,7 @@ const Overview = () => {
   const [activeTab, setActiveTab] = useState("HTEs");
   const [clickedBarIndex, setClickedBarIndex] = useState(null);
   const [selectedYear, setSelectedYear] = useState("2020");
+  
 
   
 
@@ -145,6 +146,7 @@ const Overview = () => {
   };
 
   const barOptions = {
+    maintainAspectRatio: false, // Allow the chart to have custom height and width
     responsive: true,
     plugins: {
       legend: {
@@ -242,6 +244,7 @@ const Overview = () => {
   const handleYearChange = (event) => {
     setSelectedYear(event.target.value);
   };
+  
 
   return (
 <div className="bg-gray-50 md:ml-[250px] mt-10 p-7 min-h-screen overflow-auto">
@@ -265,6 +268,18 @@ const Overview = () => {
         ? "bg-gradient-to-b from-[#9A3259] to-[#31111D]"  // HTE and OJT Coordinators
         : "bg-gradient-to-b from-[#530061] to-[#BC407A]";  // MOAs and Industry Partners
 
+        const transformScale = clickedCard === index 
+    ? (window.innerWidth < 768 
+        ? 'scale(0.8) translateX(-15%) translateY(2%)' 
+        : isFirstColumn 
+          ? 'scale(1.4) translateX(15%) translateY(15%)' 
+          : isLastColumn 
+            ? 'scale(1.4) translateX(-30%) translateY(15%)' 
+            : 'scale(1.4) translateY(15%)'
+      ) 
+    : 'scale(1)';
+
+    
       return (
         <div
           key={index}
@@ -274,14 +289,7 @@ const Overview = () => {
           style={{
             zIndex: clickedCard === index ? 50 : 1,
             width: clickedCard === index ? '130%' : '100%',
-            transform:
-              clickedCard === index
-              ? isFirstColumn
-              ? 'scale(1.4) translateX(15%) translateY(15%)'
-              : isLastColumn
-              ? 'scale(1.4) translateX(-30%) translateY(15%)'
-              : 'scale(1.4) translateY(15%)'
-            : 'scale(1)',
+            transform: transformScale,
           }}
           onClick={() => setClickedCard(clickedCard === index ? null : index)} // Toggle zoom
         >
@@ -334,6 +342,7 @@ const Overview = () => {
           {/* Dropdown for MOAs and Industry Partners */}
           {clickedCard === index && card.title === "Memorandum of Agreements (MOAs)" && (
             <div className={`absolute top-full left-0 w-full shadow-lg rounded-b-2xl p-4 z-10 ${gradientClass2}`}>
+
               <div className="flex justify-between mb-2">
                 <p className="text-2xl font-bold text-white -mt-5">
                   {parseFloat(value1).toLocaleString()} {/* HTEs value */}
@@ -399,39 +408,39 @@ const Overview = () => {
 
 
       {/* Nature of Businesses and MOA STATUS */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-1">
-        {/* Bar Chart: Nature of Businesses */}
-        <div className="bg-white shadow rounded-lg p-2 flex flex-col min-h-[40px] ">
-          <h3 className="text-lg font-medium text-gray-800 p-5">
-            Nature of Businesses
-          </h3>
-          <div className="h-[300px]">
-            <Bar data={barData} options={barOptions} />
-          </div>
-        </div>
+<div className="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-2 gap-4 mb-6">
+  {/* Bar Chart: Nature of Businesses */}
+  <div className="bg-white shadow rounded-lg p-2 flex flex-col min-h-[40px]">
+    <h3 className="text-lg font-medium text-gray-800 p-5">
+      Nature of Businesses
+    </h3>
+    <div className="h-[300px] sm:h-[250px] md:h-[300px] lg:h-[300px]">
+      <Bar data={barData} options={barOptions} />
+    </div>
+  </div>
 
-        {/* Doughnut Chart: MOA STATUS */}
-        <div className="bg-white shadow rounded-lg p-2 flex flex-col min-h-[50px] mb-1">
-          <h3 className="text-lg font-medium text-gray-800 p-5">
-            Memorandum of Agreement (MOA) STATUS
-          </h3>
-          <div style={{ height: '300px', width: '100%' }}>
-            <Doughnut data={doughnutData} options={doughnutOptions} />
-          </div>
-        </div>
-      </div>
+  {/* Doughnut Chart: MOA STATUS */}
+  <div className="bg-white shadow rounded-lg p-2 flex flex-col min-h-[50px] mb-1">
+    <h3 className="text-lg font-medium text-gray-800 p-5">
+      Memorandum of Agreement (MOA) STATUS
+    </h3>
+    <div className="h-[250px] sm:h-[220px] md:h-[250px] lg:h-[300px] w-full">
+      <Doughnut data={doughnutData} options={doughnutOptions} />
+    </div>
+  </div>
+</div>
+
 
       
         {/* Tabbed Tables */}
       <div className="bg-white shadow rounded-lg p-4 flex h-30 flex-col">
         {/* Tab Buttons and Year Dropdown Container */}
-        <div className="flex justify-between items-center border-b border-gray-200 mb-2 -mt-2">
-          {/* Tab Buttons */}
-          <div className="flex space-x-4 -mt-5">
+        <div className="flex flex-col sm:flex-row justify-between items-center border-b border-gray-200 mb-2 -mt-2">          {/* Tab Buttons */}
+          <div className="flex sm:flex -mt-5 ">
             {Object.keys(data.tableData).map((tab, index) => (
               <button
                 key={index}
-                className={`py-2 px-4 text-sm font-medium ${
+                className={`py-3 px-4 mb-5 mt-4 text-sm font-medium ${
                   activeTab === tab
                     ? "border-b-2 border-red-900 text-red-900"
                     : "text-gray-500"
@@ -447,7 +456,7 @@ const Overview = () => {
           <select
             value={selectedYear}
             onChange={handleYearChange}
-            className="py-2 px-4 mb-3 border rounded-md text-gray-700 hover:border-red-500 focus:outline-none focus:ring-2 focus:ring-red-900 focus:border-red-900"
+            className="py-1 px-4 mb-3 border rounded-md text-gray-700 hover:border-red-500 focus:outline-none focus:ring-2 focus:ring-red-900 focus:border-red-900 hidden sm:block" 
           >
             {[2020, 2021, 2022, 2023, 2024, 2025, 2026].map((year) => (
               <option key={year} value={year}>

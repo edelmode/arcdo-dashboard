@@ -5,7 +5,7 @@ export default function UserAccountDashboard() {
   
 
   return (
-    <div className=" ml-[250px] mt-5 p-5 h-screen overflow-hidden">
+    <div className=" mt-5 p-5 h-screen overflow-hidden">
       
       {/* Main Content */}
         <h2 className="text-2xl font-semibold mb-6 mt-20">Admin Profile</h2>

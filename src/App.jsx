@@ -9,6 +9,7 @@ import UserPage from './pages/UserPage';
 import OverviewPage from './pages/OverviewPage';
 import AdminProfile from './components/AdminProfile';
 import CreateAccount from './components/CreateAccount';
+import AddDataPage from './pages/AddDataPage';
 
 
 
@@ -26,6 +27,7 @@ function App() {
             <Route path="/login" element={<LandingPage />} />
             <Route path="/adminprofile" element={<AdminProfile />} />
             <Route path="/createaccount" element={<CreateAccount />} />
+            <Route path="/add" element={<AddDataPage />} />
           </Routes>
         
     </Router>

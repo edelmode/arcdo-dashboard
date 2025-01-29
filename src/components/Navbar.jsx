@@ -5,12 +5,12 @@ import {
   CirclePlus,
   Search,
   Settings,
-  PanelsTopLeft,
 } from "lucide-react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 export default function NavbarTopConfigurationPage() {
   const location = useLocation();
+  const navigate = useNavigate(); // Hook for navigation
   const [isSettingsMenuOpen, setIsSettingsMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false); // For controlling the search bar visibility
   const settingsMenuRef = useRef(null); // Reference to the settings menu
@@ -36,6 +36,11 @@ export default function NavbarTopConfigurationPage() {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
+
+  // Navigation function to the AddData page
+  const handleAddClick = () => {
+    navigate("/add ");
+  };
 
   return (
     <nav className="fixed bg-white top-0 flex items-center px-3 sm:px-10 z-50 h-[4rem] w-full ">
@@ -84,7 +89,10 @@ export default function NavbarTopConfigurationPage() {
             </button>
           </li>
           <li>
-            <button className="text-md text-black hover:text-red-800 transition duration-300">
+            <button
+              className="text-md text-black hover:text-red-800 transition duration-300"
+              onClick={handleAddClick} // Navigate to AddData page when clicked
+            >
               <CirclePlus className="h-5 w-5" />
             </button>
           </li>

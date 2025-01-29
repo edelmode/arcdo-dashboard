@@ -134,7 +134,7 @@ export default function HomeNavbar() {
         {isDropdownOpen && (
           <div
             ref={dropdownRef}
-            className="absolute z-100 bg-bg divide-y divide-gray-100 rounded-lg shadow w-44 top-[-50px] left-0 ml-3"
+            className="absolute z-100 bg-bg divide-y divide-gray-100 rounded-lg shadow w-44 bottom-20 mb-2 left-10 ml-3"
           >
             <ul className="py-2 text-sm text-white text-md font-medium">
               <li>

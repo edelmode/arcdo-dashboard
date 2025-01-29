@@ -7,7 +7,7 @@ const AdminProfile = ({ isOpen, onClose }) => {
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 p-20 ">
-      <div className="bg-white w-3/4 shadow-lg rounded-md relative">
+      <div className="bg-white w-3/4 shadow-lg rounded- relative">
         {/* Close Button */}
         <button
           onClick={onClose}

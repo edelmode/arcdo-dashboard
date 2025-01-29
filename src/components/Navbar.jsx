@@ -125,9 +125,10 @@ export default function NavbarTopConfigurationPage() {
                   </button>
                 </li>
                 <li>
-                  <button className="flex items-center text-black hover:text-red-800 transition duration-300">
+                  <button className="flex items-center text-black hover:text-red-800 transition duration-300" onClick={handleAddClick}>
                     <CirclePlus className="h-5 w-5 mr-2" />
                     <span>Add Item</span>
+                    
                   </button>
                 </li>
                 {/* Search icon inside settings */}

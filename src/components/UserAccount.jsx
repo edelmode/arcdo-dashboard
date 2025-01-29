@@ -2,18 +2,12 @@ import React from 'react';
 
 export default function UserAccountDashboard() {
   return (
-    <div className="flex flex-col sm:flex-row h-screen">
-      {/* Sidebar - Assuming it's part of the layout */}
-      <aside className="w-64 hidden sm:block bg-gray-100 p-5">
-        {/* Sidebar content here */}
-      </aside>
+    <div className="bg-gray-50 md:ml-[250px] mt-10 p-7 min-h-screen overflow-auto">
 
-      {/* Main Content */}
-      <div className="mt-3 flex-1 p-5 sm:p-8 overflow-y-auto">
-        <h2 className="text-3xl font-semibold mb-6 mt-10 sm:mt-5">Admin Profile</h2>
+        <h2 className="text-xl sm:text-xl md:text-2xl lg:text-3xl font-semibold mb-4 mt-3 text-center sm:text-left">Admin Profile</h2>
 
-        {/* User Profile Section */}
-        <section className="bg-white p-6 rounded-lg shadow-lg mb-8 flex sm:flex-row flex-col items-center sm:items-start space-x-4 sm:space-x-6">
+        {/* User Profile Section */} 
+        <section className="bg-white p-6 rounded-lg shadow-lg mb-8 flex flex-col sm:flex-row items-center sm:items-start space-x-4 sm:space-x-6">
           <img
             src="/download.jpg"
             alt="User Profile"
@@ -25,6 +19,7 @@ export default function UserAccountDashboard() {
           </div>
           <button className="ml-auto text-blue-500 hover:underline mt-4 sm:mt-0">Edit</button>
         </section>
+
 
         {/* Personal Information Section */}
         <section className="bg-white p-6 rounded-lg shadow-lg">
@@ -46,6 +41,6 @@ export default function UserAccountDashboard() {
           <button className="text-blue-500 hover:underline mt-4">Edit</button>
         </section>
       </div>
-    </div>
+    
   );
 }

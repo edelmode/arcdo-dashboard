@@ -7,7 +7,7 @@ import UserAccount from '../components/UserAccount'
 
 export default function UserPage() {
     return (
-      <div className="font-montserrat h-screen overflow-hidden">
+      <div className="font-montserrat h-auto">
           
           <Navbar />
           <UserAccount/>

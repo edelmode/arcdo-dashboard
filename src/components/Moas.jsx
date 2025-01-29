@@ -84,73 +84,77 @@ export default function HTEDashboard() {
   };
 
   return (
-    <div className="p-10 ml-[260px] mt-2 mr-5 flex flex-col h-screen overflow-hidden">
-      <h1 className="text-5xl font-semibold mb-6 mt-5">Memorandum of Agreements</h1>
-            <div className="mb-3">
-              <div className="flex items-center space-x-2 bg-gray-50 border border-gray-200 rounded-lg p-2  w-fit">
-                {/* Filter Icon */}
-                <div>
-                  <i className="fas fa-filter text-black mr-3 ml-3"></i>
-                  <span className="text-sm text-black">Filter by</span>
-                </div>
-                <div className="h-6 border-r border-gray-300 mx-4"></div>
-      
-                {/* Date Filter as Dropdown with Calendar */}
-                <DatePicker
-                  selected={filters.date ? new Date(filters.date) : null}
-                  onChange={(date) => setFilters({ ...filters, date: date ? date.toISOString().split('T')[0] : "" })}
-                  dateFormat="yyyy-MM"
-                  showMonthYearPicker
-                  className="block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none"
-                  placeholderText="Select Date"
-                  customInput={
-                    <button className="flex items-center px-3 py-2 border rounded-md">
-                      {filters.date ? new Date(filters.date).toLocaleDateString('en-GB', { year: 'numeric', month: 'long' }) : 'Select Date'} 
-                      <i className="ml-2 fas fa-chevron-down"></i>
-                    </button>
-                  }
-                />
-      
-                {/* Business Filter */}
-                <div>
-                  <input
-                    placeholder="Nature of Business"
-                    type="text"
-                    value={filters.business}
-                    onChange={(e) => setFilters({ ...filters, business: e.target.value })}
-                    className="block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none"
-                  />
-                </div>
-      
-                {/* Validity Filter */}
-                <div>
-                  <select
-                   placeholder="MOA Validity"
-                    value={filters.validity}
-                    onChange={(e) => setFilters({ ...filters, validity: e.target.value })}
-                    className="block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none"
-                  >
-                    <option value="" disabled>MOA Validity</option> {/* Placeholder effect */}
-                    <option value="Completed">Completed</option>
-                    <option value="Processing">Processing</option>
-                    <option value="On Hold">On Hold</option>
-                    <option value="Rejected">Rejected</option>
-                  </select>
-                </div>
-                <div className="h-6 border-r border-gray-300 mx-4"></div>
-      
-                {/* Reset Filters Button */}
-                <button onClick={resetFilters} className="px-4 py-2  text-red-700 rounded-md shadow-sm hover:bg-gray-200 flex items-center">
-                  <i className="fas fa-undo mr-2 text-red-700"></i>  {/* FontAwesome reset icon */}
-                  Reset Filters
-                </button>
-              </div>
+        <div className="bg-gray-50 md:ml-[250px] mt-10 p-7 min-h-screen overflow-auto">
+        <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold mb-4 mt-3">Memorandum of Agreements</h1>
+        <div className="mb-3">
+          <div className="flex flex-wrap items-center gap-2 md:gap-4 bg-gray-50 border border-gray-200 rounded-lg p-3 w-full md:w-fit">
+            
+            {/* Filter Icon */}
+            <div className="flex items-center">
+              <i className="fas fa-filter text-black mr-2"></i>
+              <span className="text-sm text-black">Filter by</span>
             </div>
 
+            {/* Divider */}
+            <div className="hidden md:block h-6 border-r border-gray-300 mx-2"></div>
+
+            {/* Date Filter */}
+            <DatePicker
+              selected={filters.date ? new Date(filters.date) : null}
+              onChange={(date) => setFilters({ ...filters, date: date ? date.toISOString().split('T')[0] : "" })}
+              dateFormat="yyyy-MM"
+              showMonthYearPicker
+              className="block w-full md:w-auto px-3 py-2 border rounded-md shadow-sm focus:outline-none"
+              placeholderText="Select Date"
+              customInput={
+                <button className="flex items-center w-full md:w-auto px-3 py-2 border rounded-md">
+                  {filters.date ? new Date(filters.date).toLocaleDateString('en-GB', { year: 'numeric', month: 'long' }) : 'Select Date'}
+                  <i className="ml-2 fas fa-chevron-down"></i>
+                </button>
+              }
+            />
+
+            {/* Business Filter */}
+            <input
+              placeholder="Nature of Business"
+              type="text"
+              value={filters.business}
+              onChange={(e) => setFilters({ ...filters, business: e.target.value })}
+              className="block w-full md:w-auto px-3 py-2 border rounded-md shadow-sm focus:outline-none"
+            />
+
+            {/* Validity Filter */}
+            <select
+              value={filters.validity}
+              onChange={(e) => setFilters({ ...filters, validity: e.target.value })}
+              className="block w-full md:w-auto px-3 py-2 border rounded-md shadow-sm focus:outline-none"
+            >
+              <option value="" disabled>MOA Validity</option>
+              <option value="Completed">Completed</option>
+              <option value="Processing">Processing</option>
+              <option value="On Hold">On Hold</option>
+              <option value="Rejected">Rejected</option>
+            </select>
+
+            {/* Divider (Visible only on larger screens) */}
+            <div className="hidden md:block h-6 border-r border-gray-300 mx-2"></div>
+
+            {/* Reset Filters Button */}
+            <button onClick={resetFilters} className="px-4 py-2 text-red-700 rounded-md shadow-sm hover:bg-gray-200 flex items-center w-full md:w-auto">
+              <i className="fas fa-undo mr-2 text-red-700"></i>
+              Reset Filters
+            </button>
+
+          </div>
+        </div>
+
+
       {/* Table Section */}
-      <div className="flex-grow h-full mt-1 overflow-hidden">
-          <table className="w-full h-auto border-collapse mt-3">
-            <thead>
+        <div className="flex-grow h-full mt-1 overflow-x-auto">
+        {/* Responsive Wrapper for Table */}
+        <div className="overflow-x-auto">
+        <table className="min-w-full h-auto border-collapse mt-3 hidden md:table">
+        <thead>
               <tr className="bg-gray-100 text-center">
                 <th className="px-4 py-2 text-left border-b">ID</th>
                 <th className="px-4 py-2 text-left border-b">COMPANY</th>
@@ -162,42 +166,101 @@ export default function HTEDashboard() {
             </thead>
             <tbody>
               {currentData.map((item, index) => (
-                <tr key={item.id} className={index % 2 === 0 ? "bg-white" : "bg-gray-50"} >
-                  <td className="px-4 py-2 border-t">{item.id}</td>
-                  <td className="px-4 py-2 border-t">{item.company}</td>
-                  <td className="px-4 py-2 border-t">{item.address}</td>
-                  <td className="px-4 py-2 border-t">{item.date}</td>
-                  <td className="px-4 py-2 border-t">{item.business}</td>
-                  <td className={`px-4 border-t rounded-full inline-block py-1 mt-1 mb-2  ${getValidityColor(item.validity)}`}>{item.validity}</td>
+                <tr key={item.id} className={`md:table-row block w-full ${index % 2 === 0 ? "bg-white" : "bg-gray-50"}`}>
+                  {/* ID */}
+                  <td className="px-4 py-2 border-t block md:table-cell">
+                    <span className="md:hidden font-semibold">ID: </span> {item.id}
+                  </td>
+                  
+                  {/* Company */}
+                  <td className="px-4 py-2 border-t block md:table-cell">
+                    <span className="md:hidden font-semibold">Company: </span> {item.company}
+                  </td>
+                  
+                  {/* Address */}
+                  <td className="px-4 py-2 border-t block md:table-cell">
+                    <span className="md:hidden font-semibold">Address: </span> {item.address}
+                  </td>
+                  
+                  {/* Date */}
+                  <td className="px-4 py-2 border-t block md:table-cell">
+                    <span className="md:hidden font-semibold">Date: </span> {item.date}
+                  </td>
+                  
+                  {/* Nature of Business */}
+                  <td className="px-4 py-2 border-t block md:table-cell">
+                    <span className="md:hidden font-semibold">Business: </span> {item.business}
+                  </td>
+                  
+                  {/* MOA Validity */}
+                  <td className="px-4 border-t py-1 block md:table-cell">
+                    <span className="md:hidden font-semibold">MOA Validity: </span> 
+                    <span className={`rounded-full px-2 py-1 ${getValidityColor(item.validity)}`}>
+                      {item.validity}
+                    </span>
+                  </td>
                 </tr>
               ))}
             </tbody>
           </table>
         </div>
 
-      <div className="flex justify-start items-center ">
-        <button 
-          onClick={handlePrevious} 
-          disabled={currentPage === 1} 
-          className="px-3 py-1 border rounded-lg hover:bg-gray-200"
-        >
-          ←
-        </button>
-      
-        <button 
-          onClick={handleNext} 
-          disabled={currentPage === totalPages} 
-          className="px-3 py-1 border rounded-lg hover:bg-gray-200 mr-2"
-        >
-          →
-        </button>
-
-        <span className="text-gray-500">
-          Showing <b>{startIndex + 1}</b> to <b>{Math.min(endIndex, filteredData.length)}</b> of <b>{filteredData.length}</b>
-        </span>
+         {/* Mobile View (Cards) */}
+         <div className="md:hidden">
+          {currentData.map((item, index) => (
+            <div key={item.id} className={`border border-gray-200 p-4 mb-4 ${index % 2 === 0 ? "bg-white" : "bg-gray-50"}`}>
+              <div className="flex justify-between">
+                <div className="font-bold">{item.company}</div>
+                <div className={`px-4 rounded-full py-1 ${getValidityColor(item.validity)}`}>
+                  {item.validity}
+                </div>
+              </div>
+              <div className="mt-2">
+                <strong>ID:</strong> {item.id}
+              </div>
+              <div className="mt-2">
+                <strong>Address:</strong> {item.address}
+              </div>
+              <div className="mt-2">
+                <strong>Date:</strong> {item.date}
+              </div>
+              <div className="mt-2">
+                <strong>Nature of Business:</strong> {item.business}
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
 
-    </div>
+        {/* Pagination Controls */}
+        <div className="flex flex-col md:flex-row justify-between items-center mt-3">
+          <div className="flex space-x-2">
+            <button 
+              onClick={handlePrevious} 
+              disabled={currentPage === 1} 
+              className="px-3 py-1 border rounded-lg hover:bg-gray-200 disabled:opacity-50"
+            >
+              ←
+            </button>
+
+            <button 
+              onClick={handleNext} 
+              disabled={currentPage === totalPages} 
+              className="px-3 py-1 border rounded-lg hover:bg-gray-200 disabled:opacity-50"
+            >
+              →
+            </button>
+          </div>
+
+          {/* Showing Results Info */}
+          <span className="text-gray-500 text-sm mt-2 md:mt-0">
+            Showing <b>{startIndex + 1}</b> to <b>{Math.min(endIndex, filteredData.length)}</b> of <b>{filteredData.length}</b>
+          </span>
+        </div>
+      </div>
+
+
+    
 
   );
 }

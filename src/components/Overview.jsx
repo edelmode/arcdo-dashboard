@@ -244,9 +244,9 @@ const Overview = () => {
   };
 
   return (
-<div className="bg-gray-50 ml-[250px] mt-10 p-7 h-screen overflow-hidden">
+<div className="bg-gray-50 md:ml-[250px] mt-10 p-7 min-h-screen overflow-auto">
   {/* Summary Cards */}
-  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-1 relative">
+  <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mb-1 relative">
     {data.summaryCards.map((card, index) => {
       // Determine if the card is in the first or last column
       const isFirstColumn = index % 4 === 0;

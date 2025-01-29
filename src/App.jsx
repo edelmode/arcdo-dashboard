@@ -8,6 +8,7 @@ import IndustryPartnersPage from './pages/IndustryPartnersPage';
 import UserPage from './pages/UserPage';
 import OverviewPage from './pages/OverviewPage';
 import AdminProfile from './components/AdminProfile';
+import CreateAccount from './components/CreateAccount';
 
 
 
@@ -24,6 +25,7 @@ function App() {
             <Route path="/overview" element={<OverviewPage />} />
             <Route path="/login" element={<LandingPage />} />
             <Route path="/adminprofile" element={<AdminProfile />} />
+            <Route path="/createaccount" element={<CreateAccount />} />
           </Routes>
         
     </Router>

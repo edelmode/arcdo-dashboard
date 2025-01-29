@@ -1,14 +1,15 @@
-import React, { useState, useEffect } from "react";
-import { Link, useLocation, NavLink } from "react-router-dom";
-import { ChartPie, FolderClosed, User, NotebookTabs, Contact, Handshake, LogOut } from "lucide-react";
-import { useNavigate } from "react-router-dom";
-import AdminProfile from "./AdminProfile"; // Import the modal component
+import React, { useState, useEffect, useRef } from "react";
+import { Link, useNavigate, NavLink, useLocation } from "react-router-dom";
+import { ChartPie, FolderClosed, User, NotebookTabs, Contact, Handshake, LogOut, PanelsTopLeft, Menu } from "lucide-react";
+import AdminProfile from "./AdminProfile";
 
 export default function HomeNavbar() {
   const location = useLocation();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
-  const [isModalOpen, setModalOpen] = useState(false); // Modal state
-
+  const [isModalOpen, setModalOpen] = useState(false);
+  const [isSidebarExpanded, setIsSidebarExpanded] = useState(true);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const dropdownRef = useRef(null);
   const navigate = useNavigate();
 
   const handleSignOutClick = () => {
@@ -28,50 +29,113 @@ export default function HomeNavbar() {
     setIsDropdownOpen(!isDropdownOpen);
   };
 
+  // Toggle sidebar expand or collapse
+  const toggleSidebar = () => {
+    setIsSidebarExpanded(!isSidebarExpanded);
+  };
+
+
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen);
+  };
+
+  // Close the dropdown if the user clicks outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setIsDropdownOpen(false);
+      }
+    };
+
+    // Add event listener for clicks outside of the dropdown
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      // Cleanup the event listener when the component is unmounted
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
+
   return (
-    <nav
-      className="fixed top-0 left-0 w-[250px] h-full flex flex-col items-start py-5 px-5 z-50"
-      style={{
-        boxShadow: "0px 8px 20px rgba(139, 69, 19, .50) solid",
-      }}
-    >
-      <div className="flex items-center h-[3.5rem] max-w-full">
-        <img src="/favicon.png" alt="Website Logo" className="w-[2.75rem] h-[2.75rem]" />
-        <p className="pl-5 font-extrabold">ARCDO</p>
+    <nav className={`fixed top-0 left-0 h-full flex flex-col items-start py-5 px-2 sm:px-5 bg-white z-50 transition-all ${
+      isMobileMenuOpen ? "w-[3rem]" : isSidebarExpanded ? "w-[16rem]" : "w-[4rem]"
+    }`}
+  >
+ 
+
+    <div
+        className="flex items-center max-w-full sm:mt-0"
+        style={{
+          marginTop: isSidebarExpanded ? "0" : "2rem", // Adjust the logo margin based on the sidebar state
+        }}
+      >
+      {/* Hide Logo on Small Screens */}
+        <img src="/favicon.png" alt="Website Logo" className="w-[2.75rem] h-[2.75rem] hidden lg:block" />
+        {/* Only show the "ARCDO" text if the sidebar is expanded */}
+        {isSidebarExpanded && <p className="pl-3 font-extrabold hidden sm:block">ARCDO</p>}
+
+
+
+        {/* Hamburger Menu for Mobile */}
+        <button onClick={toggleMobileMenu} className="lg:hidden p-2">
+          <Menu className="h-6 w-6" />
+        </button>
       </div>
 
-      <ul className="flex flex-col space-y-2 mt-5 w-full">
+      {/* Toggle button for collapsing/expanding sidebar */}
+      <button
+        onClick={toggleSidebar}
+        className="absolute top-3 right-3 p-2 mb-2 hidden lg:block"
+      >
+        <PanelsTopLeft />
+      </button>
+
+      
+      {/* Sidebar Items for Large Screens */}
+      <ul className="hidden lg:flex flex-col space-y-2 mt-5 w-full">
         {menuItems.map((item) => (
           <li key={item.name} className="w-full">
             <NavLink
               to={item.path}
-              className={({ isActive }) =>
-                `flex items-center px-2 py-3 rounded-2xl w-full ${
+              className={({ isActive }) => `flex items-center px-2 py-3 rounded-2xl relative group ${
                   isActive ? "bg-gray-300 text-black" : "hover:bg-gray-200"
                 } transition duration-300`}
             >
-              <div className="bg-gray-300 p-2 rounded-lg mr-3">{item.icon}</div>
-              <span className="text-sm font-medium">{item.name}</span>
-            </NavLink>
+            <div className="bg-gray-300 p-1 rounded-lg mr-3">{item.icon}</div>
+              {/* Only show the text if the sidebar is expanded */}
+              {isSidebarExpanded && (
+                <span className="text-sm font-medium hidden sm:inline-block group-hover:block absolute sm:static left-12 px-2 py-1">
+                  {item.name}
+                </span>
+              )}
+          </NavLink>
           </li>
         ))}
       </ul>
 
-      <div className="mt-auto w-full relative">
-        <button
+      {/* Admin Profile in Large Screens */}
+      <div className="hidden lg:flex mt-auto w-full p-4">
+      <button
           onClick={toggleDropdown}
-          className={`w-full flex items-center space-x-3 px-3 py-2 rounded-lg ${
+          className={`w-full flex items-center space-x-3 px-1 py-2 rounded-lg ${
             isDropdownOpen ? "bg-red-700" : "hover:bg-red-600"
           } transition duration-300`}
         >
           <div className="w-[40px] h-[40px] rounded-full bg-gray-300 flex items-center justify-center">
             <img src="/default-profile.jpg" alt="Profile" className="w-[35px] h-[35px] rounded-full object-cover" />
           </div>
-          <span className="text-sm font-medium text-black">Admin</span>
+          {/* Only show the "Admin" text if the sidebar is expanded */}
+          {isSidebarExpanded && (
+            <span className="text-sm font-medium text-black hidden sm:block">Admin</span>
+          )}
         </button>
 
         {isDropdownOpen && (
-          <div className="absolute z-100 bg-bg divide-y divide-gray-100 rounded-lg shadow w-44 top-[-50px] left-full ml-3">
+          <div
+            ref={dropdownRef}
+            className="absolute z-100 bg-bg divide-y divide-gray-100 rounded-lg shadow w-44 top-[-50px] left-0 ml-3"
+          >
             <ul className="py-2 text-sm text-white text-md font-medium">
               <li>
                 <button
@@ -94,7 +158,36 @@ export default function HomeNavbar() {
         )}
       </div>
 
-      {/* Render the modal */}
+    
+
+      {/* Mobile Menu */}
+      {isMobileMenuOpen && (
+        <div className="lg:hidden absolute top-16 left-0 w-64 bg-white shadow-lg p-4">
+          <ul className="space-y-2">
+            {menuItems.map((item) => (
+              <li key={item.name}>
+                <NavLink
+                  to={item.path}
+                  className={({ isActive }) => `flex items-center px-4 py-2 rounded-lg ${isActive ? "bg-gray-300 text-black" : "hover:bg-gray-200"}`}
+                  onClick={() => setIsMobileMenuOpen(false)}
+                >
+                  {item.icon} <span className="ml-3">{item.name}</span>
+                </NavLink>
+              </li>
+            ))}
+          </ul>
+          
+          <hr className="my-3" />
+          <button
+            onClick={handleSignOutClick}
+            className="flex items-center px-4 py-2 text-red-600 hover:bg-gray-100 rounded-lg w-full"
+          >
+            <LogOut className="h-5 w-5 mr-2" /> Sign Out
+          </button>
+        </div>
+      )}
+
+      {/* Admin Profile Modal */}
       <AdminProfile isOpen={isModalOpen} onClose={() => setModalOpen(false)} />
     </nav>
   );

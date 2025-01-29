@@ -8,9 +8,9 @@ import Navbar from "../components/Navbar";
 export default function OverviewPage() {
   return (
     <div className="font-montserrat overflow-hidden h-screen">
-      <HomeNavbar />
-      <Overview />
       <Navbar />
+      <Overview />
+      <HomeNavbar />
   
      
     </div>

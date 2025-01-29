@@ -5,9 +5,10 @@ import HomeNavbar from "../components/HomeNavbar"
 export default function MoasPage() {
   return (
     <div className="font-montserrat overflow-hidden h-auto">
-      <HomeNavbar />
+      
       <Navbar />
       <Moas />
+      <HomeNavbar />
     </div>
   )
 }

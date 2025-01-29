@@ -7,8 +7,8 @@ export default function HomeNavbar() {
   const location = useLocation();
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isModalOpen, setModalOpen] = useState(false);
-  const [isSidebarExpanded, setIsSidebarExpanded] = useState(true);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const mobileMenuRef = useRef(null); // Reference for mobile menu
   const dropdownRef = useRef(null);
   const navigate = useNavigate();
 
@@ -29,10 +29,7 @@ export default function HomeNavbar() {
     setIsDropdownOpen(!isDropdownOpen);
   };
 
-  // Toggle sidebar expand or collapse
-  const toggleSidebar = () => {
-    setIsSidebarExpanded(!isSidebarExpanded);
-  };
+  
 
 
   const toggleMobileMenu = () => {
@@ -45,7 +42,13 @@ export default function HomeNavbar() {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
         setIsDropdownOpen(false);
       }
-    };
+    
+
+    // Close mobile menu if clicked outside
+    if (mobileMenuRef.current && !mobileMenuRef.current.contains(event.target)) {
+      setIsMobileMenuOpen(false);
+    }
+  };
 
     // Add event listener for clicks outside of the dropdown
     document.addEventListener("mousedown", handleClickOutside);
@@ -58,38 +61,28 @@ export default function HomeNavbar() {
 
 
   return (
-    <nav className={`fixed top-0 left-0 h-full flex flex-col items-start py-5 px-2 sm:px-5 bg-white z-50 transition-all ${
-      isMobileMenuOpen ? "w-[3rem]" : isSidebarExpanded ? "w-[16rem]" : "w-[4rem]"
-    }`}
+    <nav className={`fixed top-0 left-0  sm:h-full h-[4rem] flex flex-col items-start py-5 px-2 sm:px-5 bg-white z-50 transition-all w-16rem 
+     
+    `}
   >
  
 
     <div
         className="flex items-center max-w-full sm:mt-0"
-        style={{
-          marginTop: isSidebarExpanded ? "0" : "2rem", // Adjust the logo margin based on the sidebar state
-        }}
       >
       {/* Hide Logo on Small Screens */}
         <img src="/favicon.png" alt="Website Logo" className="w-[2.75rem] h-[2.75rem] hidden lg:block" />
-        {/* Only show the "ARCDO" text if the sidebar is expanded */}
-        {isSidebarExpanded && <p className="pl-3 font-extrabold hidden sm:block">ARCDO</p>}
+        <p className="pl-3 font-extrabold hidden sm:block">ARCDO</p>
 
 
 
         {/* Hamburger Menu for Mobile */}
-        <button onClick={toggleMobileMenu} className="lg:hidden p-2">
-          <Menu className="h-6 w-6" />
+        <button onClick={toggleMobileMenu} className="lg:hidden -mt-2 p-2 h-3rem">
+          <Menu className="h-6 w-6 to" />
         </button>
       </div>
 
-      {/* Toggle button for collapsing/expanding sidebar */}
-      <button
-        onClick={toggleSidebar}
-        className="absolute top-3 right-3 p-2 mb-2 hidden lg:block"
-      >
-        <PanelsTopLeft />
-      </button>
+      
 
       
       {/* Sidebar Items for Large Screens */}
@@ -103,12 +96,11 @@ export default function HomeNavbar() {
                 } transition duration-300`}
             >
             <div className="bg-gray-300 p-1 rounded-lg mr-3">{item.icon}</div>
-              {/* Only show the text if the sidebar is expanded */}
-              {isSidebarExpanded && (
+              
                 <span className="text-sm font-medium hidden sm:inline-block group-hover:block absolute sm:static left-12 px-2 py-1">
                   {item.name}
                 </span>
-              )}
+              
           </NavLink>
           </li>
         ))}
@@ -125,10 +117,8 @@ export default function HomeNavbar() {
           <div className="w-[40px] h-[40px] rounded-full bg-gray-300 flex items-center justify-center">
             <img src="/default-profile.jpg" alt="Profile" className="w-[35px] h-[35px] rounded-full object-cover" />
           </div>
-          {/* Only show the "Admin" text if the sidebar is expanded */}
-          {isSidebarExpanded && (
             <span className="text-sm font-medium text-black hidden sm:block">Admin</span>
-          )}
+          
         </button>
 
         {isDropdownOpen && (
@@ -162,7 +152,7 @@ export default function HomeNavbar() {
 
       {/* Mobile Menu */}
       {isMobileMenuOpen && (
-        <div className="lg:hidden absolute top-16 left-0 w-64 bg-white shadow-lg p-4">
+        <div ref={mobileMenuRef} className="lg:hidden absolute top-16 left-0 w-64 bg-white shadow-lg p-4">
           <ul className="space-y-2">
             {menuItems.map((item) => (
               <li key={item.name}>

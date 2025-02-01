@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Bar, Doughnut } from "react-chartjs-2";
 import { Chart as ChartJS, ArcElement, BarElement, Tooltip, Legend, CategoryScale, LinearScale } from "chart.js";
 import ChartDataLabels from 'chartjs-plugin-datalabels';
+import axios from 'axios';
 import { CornerRightUp, CornerLeftDown } from 'lucide-react';
-
 
 // Register the required components for Chart.js
 ChartJS.register(ArcElement, BarElement, Tooltip, Legend, CategoryScale, LinearScale, ChartDataLabels);
@@ -71,6 +71,56 @@ const Overview = () => {
   };
 
   const [clickedCard, setClickedCard] = useState(null);
+  const [clickedCard, setClickedCard] = useState(null);
+  const [activeTab, setActiveTab] = useState('HTEs');
+  const [selectedYear, setSelectedYear] = useState("2023");
+  const [loading, setLoading] = useState(true);
+  const [data, setData] = useState({
+    summaryCards: [],
+    Industrypartnercard: [],
+    natureOfBusinesses: [],
+    moaSTATUS: [],
+    tableData: { HTEs: [], Industry: [], OJTCoordinators: [] }
+  });
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setLoading(true);
+        const [summaryRes, businessRes, moaStatusRes, hteRes, industryRes, ojtRes] = await Promise.all([
+          axios.get('http://localhost:3001/api/summary-counts'),
+          axios.get('http://localhost:3001/api/business-counts'),
+          axios.get('http://localhost:3001/api/moa-status'),
+          axios.get('http://localhost:3001/api/hte'),
+          axios.get('http://localhost:3001/api/industry_partner'),
+          axios.get('http://localhost:3001/api/ojt_coordinator')
+        ]);
+
+        setData({
+          summaryCards: [
+            { title: "Host Training Establishments (HTEs)", value: summaryRes.data.hte.toString(), change: "+14%" },
+            { title: "Memorandum of Agreements (MOAs)", value: summaryRes.data.moa.toString(), change: "+20%" },
+            { title: "On-the-Job Training Coordinators", value: summaryRes.data.ojt.toString(), change: "-5%" },
+            { title: "Industry Partners", value: summaryRes.data.industry.toString(), change: "+10%" }
+          ],
+          Industrypartnercard: moaStatusRes.data,
+          natureOfBusinesses: businessRes.data,
+          moaSTATUS: moaStatusRes.data,
+          tableData: {
+            HTEs: hteRes.data,
+            Industry: industryRes.data,
+            OJTCoordinators: ojtRes.data
+          }
+        });
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   const doughnutIndustrycardData = {
     labels: data.Industrypartnercard.map((STATUS) => `${STATUS.STATUS} ${STATUS.percentage}%`),
@@ -116,30 +166,21 @@ const Overview = () => {
 
   // Bar Chart Data and Options
   const barData = {
-    labels: data.natureOfBusinesses.map((business) => business.category),
+    labels: data.natureOfBusinesses.map((business) => business.business_type),
     datasets: [
       {
-        label: "Nature of Businesses",
         data: data.natureOfBusinesses.map((business) => business.count),
-        backgroundColor: data.natureOfBusinesses.map((business, index) =>
-          index === clickedBarIndex ? "#31111D" : "#FFD8E4"
-        ), // Change color of clicked bar
-        barThickness: 70,
-        borderRadius: 16,
-        // Add custom options for data labels
+        backgroundColor: '#31111D',
+        borderRadius: 5,
         datalabels: {
-          display: (context) => context.dataIndex === clickedBarIndex, // Show label only for the clicked bar
-          anchor: "end",
           align: "end",
           color: "#FFFFFF",
-          font: {
-            weight: "bold",
-          },
-          offset: 4, // Adjusted space between the label and the top of the bar
-          backgroundColor: "#31111D", // Background color for the label
-          padding: 8, // Padding around the label text
-          borderRadius: 20, // Rounded corners for the background
-          formatter: (value) => formatNumber(value), // Format numbers here
+          font: { weight: "bold" },
+          offset: 4,
+          backgroundColor: "#31111D",
+          padding: 8,
+          borderRadius: 20,
+          formatter: (value) => formatNumber(value),
         },
       },
     ],
@@ -149,62 +190,18 @@ const Overview = () => {
     maintainAspectRatio: false, // Allow the chart to have custom height and width
     responsive: true,
     plugins: {
-      legend: {
-        display: false, // Hide legend for Bar chart
-      },
+      legend: { display: false },
       datalabels: {
-        anchor: "end", // Position the label at the top of the bar
-        align: "end",  // Align the label to the end (top) of the bar
-        font: {
-          weight: "bold", // Set font weight for labels
-          size: 20, // Set font size for labels 
-        },
-       
-        backgroundColor: "#FF6347", // Background color for the label
-        borderRadius: 5, // Rounded corners for the background
-        
+        anchor: 'end',
+        align: 'end',
       },
     },
     scales: {
-      y: {
-        ticks: {
-          display: false, // Hide Y-axis labels
-        },
-        grid: {
-          display: false, // Hide Y-axis grid lines
-        },
-        border: {
-          display: false,  // Remove y-axis line
-        },
-      },
-      x: {
-        grid: {
-          display: false, // Hide X-axis grid lines
-        },
-        border: {
-          display: false,  // Remove x-axis line
-        },
-      },
-    },
-    layout: {
-      padding: {
-        top: 40,
-        bottom: 3,
-        left: 10,
-        right: 10,
-      },
-    },
-    onClick: (event, elements) => {
-      if (elements.length > 0) {
-        const index = elements[0].index;
-        setClickedBarIndex(index === clickedBarIndex ? null : index); // Toggle clicked state
-      }
+      x: { ticks: { color: 'white' } },
+      y: { ticks: { color: 'white' } }
     },
   };
 
-
-
-  // Doughnut Chart Data and Options
   const doughnutData = {
     labels: data.moaSTATUS.map((STATUS) => `${STATUS.STATUS} ${STATUS.percentage}%`),
     datasets: [
@@ -244,7 +241,6 @@ const Overview = () => {
   const handleYearChange = (event) => {
     setSelectedYear(event.target.value);
   };
-  
 
   return (
 <div className="bg-gray-50 md:ml-[250px] mt-10 p-7 min-h-screen overflow-auto">
@@ -398,14 +394,6 @@ const Overview = () => {
       );
     })}
   </div>
-
-
-
-
-
-
-
-
 
       {/* Nature of Businesses and MOA STATUS */}
 <div className="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-2 gap-4 mb-6">

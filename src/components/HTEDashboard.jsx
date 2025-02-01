@@ -1,19 +1,11 @@
-import React, { useState } from "react";
-import DatePicker from "react-datepicker"; 
-import "react-datepicker/dist/react-datepicker.css"; 
+import React, { useState, useEffect } from "react";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import axios from 'axios';
 
 export default function HTEDashboard() {
-  const allData = [
-    { id: 1, company: "Company A", address: "Address 1", date: "2025-01-20", business: "IT", validity: "Completed" },
-    { id: 2, company: "Company B", address: "Address 2", date: "2025-01-18", business: "Consulting", validity: "Processing" },
-    { id: 3, company: "Company C", address: "Address 3", date: "2025-01-15", business: "Education", validity: "On Hold" },
-    { id: 4, company: "Company D", address: "Address 4", date: "2025-01-10", business: "Manufacturing", validity: "Rejected" },
-    { id: 5, company: "Company E", address: "Address 5", date: "2025-01-08", business: "Retail", validity: "Completed" },
-    { id: 6, company: "Company F", address: "Address 6", date: "2025-01-05", business: "Logistics", validity: "Processing" },
-    { id: 7, company: "Company G", address: "Address 7", date: "2025-01-03", business: "Healthcare", validity: "On Hold" },
-    { id: 8, company: "Company H", address: "Address 8", date: "2025-01-01", business: "Finance", validity: "Rejected" },
-  ];
-
+  const [allData, setAllData] = useState([]); // Changed initial state to an empty array
+  const [filteredData, setFilteredData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [filters, setFilters] = useState({
     date: "",
@@ -21,31 +13,55 @@ export default function HTEDashboard() {
     validity: "",
   });
 
-  const itemsPerPage = 8;
-  const totalPages = Math.ceil(allData.length / itemsPerPage);
+  const itemsPerPage = 5;
 
-  const filteredData = allData.filter((item) => {
+  // Fetch Data from API
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        console.log("Fetching data from API...");
+        const response = await axios.get('http://localhost:3001/api/hte'); // Ensure backend endpoint is correct
+        console.log("Fetched Data:", response.data); // Debugging: Check API response
+
+        // Ensure response.data is an array before setting state
+        if (Array.isArray(response.data)) {
+          setAllData(response.data);
+          setFilteredData(response.data); // Set initial data
+          console.log("Data set successfully");
+        } else {
+          setAllData([]); // Handle unexpected response format
+          setFilteredData([]);
+          console.error("Unexpected response format:", response.data);
+        }
+      } catch (error) {
+        console.error("Error fetching data:", error);
+        setAllData([]); // Handle API error
+        setFilteredData([]);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  // Filter Data
+  const filteredDataResults = allData ? allData.filter((item) => {
     const matchesDate = filters.date ? item.date.startsWith(filters.date) : true;
     const matchesBusiness = filters.business ? item.business.toLowerCase().includes(filters.business.toLowerCase()) : true;
     const matchesValidity = filters.validity ? item.validity === filters.validity : true;
-
     return matchesDate && matchesBusiness && matchesValidity;
-  });
+  }) : [];
 
+  const totalPages = Math.ceil(filteredDataResults.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
-  const currentData = filteredData.slice(startIndex, endIndex);
+  const currentData = filteredDataResults.slice(startIndex, endIndex);
 
   const handleNext = () => {
-    if (currentPage < totalPages) {
-      setCurrentPage(currentPage + 1);
-    }
+    if (currentPage < totalPages) setCurrentPage(currentPage + 1);
   };
 
   const handlePrevious = () => {
-    if (currentPage > 1) {
-      setCurrentPage(currentPage - 1);
-    }
+    if (currentPage > 1) setCurrentPage(currentPage - 1);
   };
 
   const resetFilters = () => {
@@ -55,16 +71,11 @@ export default function HTEDashboard() {
 
   const getValidityColor = (validity) => {
     switch (validity) {
-      case "Completed":
-        return "bg-green-100 text-green-600";
-      case "Processing":
-        return "bg-purple-100 text-purple-600";
-      case "Rejected":
-        return "bg-red-100 text-red-600";
-      case "On Hold":
-        return "bg-yellow-100 text-yellow-600";
-      default:
-        return "bg-gray-100 text-gray-600";
+      case "Completed": return "bg-green-100 text-green-600";
+      case "Processing": return "bg-purple-100 text-purple-600";
+      case "Rejected": return "bg-red-100 text-red-600";
+      case "On Hold": return "bg-yellow-100 text-yellow-600";
+      default: return "bg-gray-100 text-gray-600";
     }
   };
 

@@ -14,7 +14,7 @@ const Login = () => {
   };
 
   return (
-    <div className="h-screen bg-gradient-to-br from-purple-900 to-pink-700 flex justify-center items-center px-4">
+    <div className="h-screen bg-gradient-to-br from-red-900 to-red-600 flex justify-center items-center px-4">
       <div className="bg-white p-8 rounded-lg shadow-md w-full max-w-xs sm:max-w-sm md:max-w-md">
         <h2 className="text-2xl font-semibold text-center mb-4">Login to Account</h2>
         <p className="text-center text-gray-600 mb-6">Please enter your email and password to continue</p>
@@ -46,7 +46,7 @@ const Login = () => {
           </div>
           <button
             type="submit"
-            className="w-full bg-purple-700 text-white py-2 rounded-md hover:bg-purple-500 transition"
+            className="w-full bg-amber-400 text-white py-2 rounded-md hover:bg-amber-200 transition"
             onClick={handleOverviewPageClick}
           >
             Sign In

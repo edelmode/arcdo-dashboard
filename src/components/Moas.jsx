@@ -157,14 +157,15 @@ export default function Moas() {
               </tr>
             </thead>
             <tbody>
-              {currentData.map((item, index) => (
-                <tr key={item.id} className={index % 2 === 0 ? "bg-white" : "bg-gray-50"} >
+            {currentData.length > 0 ? (
+              currentData.map((item, index) => (
+                <tr key={item.id} className={index % 2 === 0 ? "bg-white" : "bg-gray-50"}>
                   <td className="px-4 py-2 border-t">{item.id}</td>
                   <td className="px-4 py-2 border-t">{item.company}</td>
                   <td className="px-4 py-2 border-t">{item.address}</td>
                   <td className="px-4 py-2 border-t">{item.date}</td>
                   <td className="px-4 py-2 border-t">{item.business}</td>
-                  <td className={`px-4 border-t rounded-full inline-block py-1 mt-1 mb-2  ${getValidityColor(item.validity)}`}>{item.validity}</td>
+                  <td className={`px-4 border-t rounded-full inline-block py-1 mt-1 mb-2 ${getValidityColor(item.validity)}`}>{item.validity}</td>
                 </tr>
               ))
             ) : (
@@ -172,6 +173,7 @@ export default function Moas() {
                 <td colSpan="6" className="text-center text-gray-500 py-4">No Data Available</td>
               </tr>
             )}
+
           </tbody>
         </table>
       </div>

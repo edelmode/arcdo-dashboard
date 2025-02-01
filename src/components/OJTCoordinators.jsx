@@ -62,37 +62,52 @@ export default function OJTCoordinators() {
   };
 
   return (
-    <div className="p-10 ml-[260px] mt-2 mr-5 flex flex-col h-screen overflow-hidden">
-      <h1 className="text-5xl font-semibold mb-6 mt-5">OJT Coordinators</h1>
+    <div className="bg-gray-50 md:ml-[250px] mt-10 p-7 min-h-screen overflow-auto">
+          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold mb-4 mt-3">OJT Coordinators</h1>
+          <div className="mb-3">
+            <div className="flex flex-wrap sm:flex-nowrap items-center gap-2 sm:gap-4 bg-gray-50 border border-gray-200 rounded-lg p-2 w-full sm:w-fit">
+              {/* Filter Icon */}
+              <div className="flex items-center">
+                <i className="fas fa-filter text-black mr-2"></i>
+                <span className="text-sm text-black">Filter by</span>
+              </div>
 
-      {/* Filters */}
-      <div className="mb-3">
-        <div className="flex items-center space-x-2 bg-gray-50 border border-gray-200 rounded-lg p-2 w-fit">
-          <div>
-            <i className="fas fa-filter text-black mr-3 ml-3"></i>
-            <span className="text-sm text-black">Filter by</span>
+              {/* Divider (Hidden on Small Screens) */}
+              <div className="hidden sm:block h-6 border-r border-gray-300"></div>
+
+              {/* Campus Dropdown */}
+              <div className="w-full sm:w-auto">
+                <select
+                  value={filters.campus}
+                  onChange={(e) => setFilters({ campus: e.target.value })}
+                  className="w-full sm:min-w-[120px] px-3 py-2 border rounded-md shadow-sm focus:outline-none"
+                >
+                  <option value="" disabled>Campus</option>
+                  <option value="Main">Main</option>
+                  <option value="West">West</option>
+                  <option value="East">East</option>
+                  <option value="South">South</option>
+                </select>
+              </div>
+
+              {/* Divider (Hidden on Small Screens) */}
+              <div className="hidden sm:block h-6 border-r border-gray-300"></div>
+
+              {/* Reset Filters Button */}
+              <button 
+                onClick={resetFilters} 
+                className="w-full sm:w-auto px-4 py-2 text-red-700 rounded-md shadow-sm hover:bg-gray-200 flex items-center justify-center"
+              >
+                <i className="fas fa-undo mr-2 text-red-700"></i>  
+                Reset Filters
+              </button>
+            </div>
           </div>
-          <div className="h-6 border-r border-gray-300 mx-4"></div>
 
-          {/* Campus Filter */}
-          <input
-            placeholder="Campus"
-            type="text"
-            value={filters.campus}
-            onChange={(e) => setFilters({ ...filters, campus: e.target.value })}
-            className="block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none"
-          />
 
-          {/* Reset Filters */}
-          <button onClick={resetFilters} className="px-4 py-2 text-red-700 rounded-md shadow-sm hover:bg-gray-200 flex items-center">
-            <i className="fas fa-undo mr-2 text-red-700"></i> Reset Filters
-          </button>
-        </div>
-      </div>
-
-      {/* Data Table */}
-      <div className="flex-grow h-full mt-1 overflow-hidden">
-        <table className="w-full h-auto border-collapse mt-3">
+        {/* Table Section */}
+      <div className="flex-grow h-full mt-1 overflow-x-auto">
+        <table className="min-w-full h-auto border-collapse mt-3 hidden md:table">
           <thead>
             <tr className="bg-gray-100 text-center">
               <th className="px-4 py-2 text-left border-b">ID</th>
@@ -122,14 +137,60 @@ export default function OJTCoordinators() {
             )}
           </tbody>
         </table>
+
+        {/* Mobile View (Cards) */}
+        <div className="md:hidden">
+          {currentCoordinators.map((coordinator, index) => (
+            <div key={coordinator.id} className={`border border-gray-200 p-4 mb-4 ${index % 2 === 0 ? "bg-white" : "bg-gray-50"}`}>
+              <div className="flex justify-between">
+                <div className="font-bold">{coordinator.name}</div>
+                <div className={`px-4 rounded-full py-1 ${getStatusColor(coordinator.status)}`}>
+                  {coordinator.status}
+                </div>
+              </div>
+              <div className="mt-2">
+                <strong>ID:</strong> {coordinator.id}
+              </div>
+              <div className="mt-2">
+                <strong>Campus:</strong> {coordinator.campus}
+              </div>
+              <div className="mt-2">
+                <strong>Contact:</strong> {coordinator.contact}
+              </div>
+              <div className="mt-2">
+                <strong>Office:</strong> {coordinator.office}
+              </div>
+              <div className="mt-2">
+                <strong>Assigned Students:</strong> {coordinator.assignedStudents}
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
 
-      {/* Pagination */}
-      <div className="flex justify-start items-center">
-        <button onClick={handlePrevious} disabled={currentPage === 1} className="px-3 py-1 border rounded-lg hover:bg-gray-200">←</button>
-        <button onClick={handleNext} disabled={currentPage === totalPages} className="px-3 py-1 border rounded-lg hover:bg-gray-200 mr-2">→</button>
-        <span className="text-gray-500">Showing <b>{startIndex + 1}</b> to <b>{Math.min(endIndex, filteredDataResults.length)}</b> of <b>{filteredDataResults.length}</b></span>
+      {/* Pagination Section */}
+      <div className="flex justify-start items-center mt-4">
+        <button
+          onClick={handlePrevious}
+          disabled={currentPage === 1}
+          className="px-3 py-1 border rounded-lg hover:bg-gray-200"
+        >
+          ←
+        </button>
+        <button
+          onClick={handleNext}
+          disabled={currentPage === totalPages}
+          className="px-3 py-1 border rounded-lg hover:bg-gray-200 mr-2"
+        >
+          →
+        </button>
+        <span className="text-gray-500">
+          Showing <b>{startIndex + 1}</b> to <b>{Math.min(endIndex, filteredCoordinators.length)}</b> of{" "}
+          <b>{filteredCoordinators.length}</b>
+        </span>
       </div>
+
+
     </div>
   );
 }

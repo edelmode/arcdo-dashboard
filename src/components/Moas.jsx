@@ -81,85 +81,90 @@ export default function Moas() {
 
   return (
     <div className="p-10 ml-[260px] mt-2 mr-5 flex flex-col h-screen overflow-hidden">
-      <h1 className="text-5xl font-semibold mb-6 mt-5">MOAs</h1>
+      <h1 className="text-5xl font-semibold mb-6 mt-5">Memorandum of Agreements</h1>
+            <div className="mb-3">
+              <div className="flex items-center space-x-2 bg-gray-50 border border-gray-200 rounded-lg p-2  w-fit">
+                {/* Filter Icon */}
+                <div>
+                  <i className="fas fa-filter text-black mr-3 ml-3"></i>
+                  <span className="text-sm text-black">Filter by</span>
+                </div>
+                <div className="h-6 border-r border-gray-300 mx-4"></div>
+      
+                {/* Date Filter as Dropdown with Calendar */}
+                <DatePicker
+                  selected={filters.date ? new Date(filters.date) : null}
+                  onChange={(date) => setFilters({ ...filters, date: date ? date.toISOString().split('T')[0] : "" })}
+                  dateFormat="yyyy-MM"
+                  showMonthYearPicker
+                  className="block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none"
+                  placeholderText="Select Date"
+                  customInput={
+                    <button className="flex items-center px-3 py-2 border rounded-md">
+                      {filters.date ? new Date(filters.date).toLocaleDateString('en-GB', { year: 'numeric', month: 'long' }) : 'Select Date'} 
+                      <i className="ml-2 fas fa-chevron-down"></i>
+                    </button>
+                  }
+                />
+      
+                {/* Business Filter */}
+                <div>
+                  <input
+                    placeholder="Nature of Business"
+                    type="text"
+                    value={filters.business}
+                    onChange={(e) => setFilters({ ...filters, business: e.target.value })}
+                    className="block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none"
+                  />
+                </div>
+      
+                {/* Validity Filter */}
+                <div>
+                  <select
+                   placeholder="MOA Validity"
+                    value={filters.validity}
+                    onChange={(e) => setFilters({ ...filters, validity: e.target.value })}
+                    className="block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none"
+                  >
+                    <option value="" disabled>MOA Validity</option> {/* Placeholder effect */}
+                    <option value="Completed">Completed</option>
+                    <option value="Processing">Processing</option>
+                    <option value="On Hold">On Hold</option>
+                    <option value="Rejected">Rejected</option>
+                  </select>
+                </div>
+                <div className="h-6 border-r border-gray-300 mx-4"></div>
+      
+                {/* Reset Filters Button */}
+                <button onClick={resetFilters} className="px-4 py-2  text-red-700 rounded-md shadow-sm hover:bg-gray-200 flex items-center">
+                  <i className="fas fa-undo mr-2 text-red-700"></i>  {/* FontAwesome reset icon */}
+                  Reset Filters
+                </button>
+              </div>
+            </div>
 
-      {/* Filters */}
-      <div className="mb-3">
-        <div className="flex items-center space-x-2 bg-gray-50 border border-gray-200 rounded-lg p-2 w-fit">
-          <div>
-            <i className="fas fa-filter text-black mr-3 ml-3"></i>
-            <span className="text-sm text-black">Filter by</span>
-          </div>
-          <div className="h-6 border-r border-gray-300 mx-4"></div>
-
-          {/* Date Filter */}
-          <DatePicker
-            selected={filters.date ? new Date(filters.date) : null}
-            onChange={(date) => setFilters({ ...filters, date: date ? date.toISOString().split('T')[0] : "" })}
-            dateFormat="yyyy-MM"
-            showMonthYearPicker
-            className="block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none"
-            placeholderText="Select Date"
-            customInput={
-              <button className="flex items-center px-3 py-2 border rounded-md">
-                {filters.date ? new Date(filters.date).toLocaleDateString('en-GB', { year: 'numeric', month: 'long' }) : 'Select Date'}
-                <i className="ml-2 fas fa-chevron-down"></i>
-              </button>
-            }
-          />
-
-          {/* Business Filter */}
-          <input
-            placeholder="Nature of Business"
-            type="text"
-            value={filters.business}
-            onChange={(e) => setFilters({ ...filters, business: e.target.value })}
-            className="block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none"
-          />
-
-          {/* Validity Filter */}
-          <select
-            value={filters.validity}
-            onChange={(e) => setFilters({ ...filters, validity: e.target.value })}
-            className="block w-full px-3 py-2 border rounded-md shadow-sm focus:outline-none"
-          >
-            <option value="" disabled>MOA Validity</option>
-            <option value="Completed">Completed</option>
-            <option value="Processing">Processing</option>
-            <option value="On Hold">On Hold</option>
-            <option value="Rejected">Rejected</option>
-          </select>
-
-          {/* Reset Filters */}
-          <button onClick={resetFilters} className="px-4 py-2 text-red-700 rounded-md shadow-sm hover:bg-gray-200 flex items-center">
-            <i className="fas fa-undo mr-2 text-red-700"></i> Reset Filters
-          </button>
-        </div>
-      </div>
-
-      {/* Data Table */}
+      {/* Table Section */}
       <div className="flex-grow h-full mt-1 overflow-hidden">
-        <table className="w-full h-auto border-collapse mt-3">
-          <thead>
-            <tr className="bg-gray-100 text-center">
-              <th className="px-4 py-2 text-left border-b">ID</th>
-              <th className="px-4 py-2 text-left border-b">COMPANY</th>
-              <th className="px-4 py-2 text-left border-b">ADDRESS</th>
-              <th className="px-4 py-2 text-left border-b">DATE</th>
-              <th className="px-4 py-2 text-left border-b">NATURE OF BUSINESS</th>
-              <th className="px-4 py-2 text-left border-b">MOA VALIDITY</th>
-            </tr>
-          </thead>
-          <tbody>
-            {currentData.length > 0 ? (
-              currentData.map((item, index) => (
-                <tr key={item.id} className={index % 2 === 0 ? "bg-white" : "bg-gray-50"}>
-                  <td className="px-4 py-2 border-t">{item.id || "N/A"}</td>
-                  <td className="px-4 py-2 border-t">{item.company || "N/A"}</td>
-                  <td className="px-4 py-2 border-t">{item.address || "N/A"}</td>
-                  <td className="px-4 py-2 border-t">{item.date || "N/A"}</td>
-                  <td className="px-4 py-2 border-t">{item.business || "N/A"}</td>
-                  <td className={`px-4 border-t rounded-full inline-block py-1 mt-1 mb-2 ${getValidityColor(item.validity)}`}>{item.validity || "N/A"}</td>
+          <table className="w-full h-auto border-collapse mt-3">
+            <thead>
+              <tr className="bg-gray-100 text-center">
+                <th className="px-4 py-2 text-left border-b">ID</th>
+                <th className="px-4 py-2 text-left border-b">COMPANY</th>
+                <th className="px-4 py-2 text-left border-b">ADDRESS</th>
+                <th className="px-4 py-2 text-left border-b">DATE</th>
+                <th className="px-4 py-2 text-left border-b">NATURE OF BUSINESS</th>
+                <th className="px-4 py-2 text-left border-b">MOA VALIDITY</th>
+              </tr>
+            </thead>
+            <tbody>
+              {currentData.map((item, index) => (
+                <tr key={item.id} className={index % 2 === 0 ? "bg-white" : "bg-gray-50"} >
+                  <td className="px-4 py-2 border-t">{item.id}</td>
+                  <td className="px-4 py-2 border-t">{item.company}</td>
+                  <td className="px-4 py-2 border-t">{item.address}</td>
+                  <td className="px-4 py-2 border-t">{item.date}</td>
+                  <td className="px-4 py-2 border-t">{item.business}</td>
+                  <td className={`px-4 border-t rounded-full inline-block py-1 mt-1 mb-2  ${getValidityColor(item.validity)}`}>{item.validity}</td>
                 </tr>
               ))
             ) : (
@@ -171,12 +176,29 @@ export default function Moas() {
         </table>
       </div>
 
-      {/* Pagination */}
-      <div className="flex justify-start items-center">
-        <button onClick={handlePrevious} disabled={currentPage === 1} className="px-3 py-1 border rounded-lg hover:bg-gray-200">←</button>
-        <button onClick={handleNext} disabled={currentPage === totalPages} className="px-3 py-1 border rounded-lg hover:bg-gray-200 mr-2">→</button>
-        <span className="text-gray-500">Showing <b>{startIndex + 1}</b> to <b>{Math.min(endIndex, filteredDataResults.length)}</b> of <b>{filteredDataResults.length}</b></span>
+      <div className="flex justify-start items-center ">
+        <button 
+          onClick={handlePrevious} 
+          disabled={currentPage === 1} 
+          className="px-3 py-1 border rounded-lg hover:bg-gray-200"
+        >
+          ←
+        </button>
+      
+        <button 
+          onClick={handleNext} 
+          disabled={currentPage === totalPages} 
+          className="px-3 py-1 border rounded-lg hover:bg-gray-200 mr-2"
+        >
+          →
+        </button>
+
+        <span className="text-gray-500">
+          Showing <b>{startIndex + 1}</b> to <b>{Math.min(endIndex, filteredData.length)}</b> of <b>{filteredData.length}</b>
+        </span>
       </div>
+
     </div>
+
   );
 }

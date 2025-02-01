@@ -4,7 +4,7 @@ import HomeNavbar from "../components/HomeNavbar"
 
 export default function IndustryPartnersPage() {
   return (
-    <div className="font-montserrat overflow-hidden h-auto">
+    <div className="font-montserrat  h-auto">
       <Navbar />
       <IndustryPartners />
       <HomeNavbar />

@@ -5,7 +5,7 @@ import HomeNavbar from '../components/HomeNavbar'
 
 export default function OJTCoordinatorsPage() {
   return (
-    <div className="font-montserrat overflow-hidden">
+    <div className="font-montserrat h-auto">
         <Navbar />
         <OJTCoordinators />
         <HomeNavbar />

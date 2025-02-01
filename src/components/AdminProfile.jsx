@@ -6,23 +6,23 @@ const AdminProfile = ({ isOpen, onClose }) => {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 p-20 ">
-      <div className="bg-white w-3/4 shadow-lg rounded-md relative">
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center z-50 p-4">
+      <div className="bg-white w-full max-w-lg md:max-w-3xl shadow-lg rounded-lg relative p-6 flex flex-col overflow-y-auto max-h-screen sm:max-h-[90vh]">
         {/* Close Button */}
         <button
           onClick={onClose}
-          className="absolute top-2 right-2 text-gray-500 hover:text-gray-800"
+          className="absolute top-1 right-3 text-gray-500 hover:text-gray-800 text-3xl"
         >
           &times;
         </button>
 
-        <div className="flex">
+        <div className="flex flex-col md:flex-row">
           {/* Sidebar */}
-          <div className="w-1/4 bg-gray-100 p-4">
+          <div className="rounded-lg w-full md:w-1/5 bg-gray-100 p-4 flex flex-col">
             <button
               onClick={() => setActiveTab("profile")}
               className={`block w-full text-left px-4 py-2 ${
-                activeTab === "profile" ? "bg-gray-200 font-semibold" : ""
+                activeTab === "profile" ? "bg-gray-200 font-semibold rounded-lg" : ""
               }`}
             >
               Admin Profile
@@ -30,7 +30,7 @@ const AdminProfile = ({ isOpen, onClose }) => {
             <button
               onClick={() => setActiveTab("user-access")}
               className={`block w-full text-left px-4 py-2 ${
-                activeTab === "user-access" ? "bg-gray-200 font-semibold" : ""
+                activeTab === "user-access" ? "bg-gray-200 font-semibold rounded-lg" : ""
               }`}
             >
               User Access
@@ -38,7 +38,7 @@ const AdminProfile = ({ isOpen, onClose }) => {
           </div>
 
           {/* Main Content */}
-          <div className="w-3/4 p-6">
+          <div className="w-full md:w-4/5 p-6">
             {activeTab === "profile" && (
               <div>
                 <h2 className="text-xl font-semibold mb-4">Admin Profile</h2>
@@ -74,7 +74,7 @@ const AdminProfile = ({ isOpen, onClose }) => {
                   </div>
                   <button
                     type="submit"
-                    className="bg-purple-700 text-white py-2 px-4 rounded-md hover:bg-purple-800"
+                    className="bg-purple-700 text-white py-2 px-4 rounded-md hover:bg-purple-800 w-full"
                   >
                     Save Changes
                   </button>

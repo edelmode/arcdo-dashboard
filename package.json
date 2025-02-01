@@ -11,7 +11,6 @@
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^6.6.0",
-    "axios": "^1.7.9",
     "chart.js": "^4.4.7",
     "chartjs-plugin-datalabels": "^2.2.0",
     "fontawesome-free": "^1.0.4",
@@ -36,6 +35,6 @@
     "globals": "^15.9.0",
     "postcss": "^8.4.47",
     "tailwindcss": "^3.4.14",
-    "vite": "^5.4.11"
+    "vite": "^5.4.14"
   }
 }

@@ -9,70 +9,10 @@ import { CornerRightUp, CornerLeftDown } from 'lucide-react';
 ChartJS.register(ArcElement, BarElement, Tooltip, Legend, CategoryScale, LinearScale, ChartDataLabels);
 
 const Overview = () => {
+  // Consolidated state declarations
   const [activeTab, setActiveTab] = useState("HTEs");
   const [clickedBarIndex, setClickedBarIndex] = useState(null);
-  const [selectedYear, setSelectedYear] = useState("2020");
-  
-
-  
-
-  const data = {
-    summaryCards: [
-      { title: "Host Training Establishments (HTEs)", value: "7265", change: "+11.01%" },
-      { title: "Memorandum of Agreements (MOAs)", value: "3671", change: "-0.03%" },
-      { title: "On-the-Job Training Coordinators", value: "256", change: "+15.03%" },
-      { title: "Industry Partners", value: "2318", change: "+6.08%" },
-    ],
-  Industrypartnercard: [
-    { STATUS: "NOB 1", percentage: 52.1, color: "#34C759" },
-    { STATUS: "NOB 2", percentage: 22.8, color: "#6750A4" },
-    { STATUS: "NOB 3", percentage: 13.9, color: "#FF2D55" },
-    { STATUS: "Other", percentage: 11.2, color: "#CE93D8" },
-  ],
-    
-
-    natureOfBusinesses: [
-      { category: "Banking", count: 160000 },
-      { category: "IT", count: 200000 },
-      { category: "BPO", count: 140000 },
-      { category: "MFG", count: 243000  },
-      { category: "Corporation", count: 180000  },
-      { category: "Other", count: 100000 },
-    ],
-    moaSTATUS: [
-      { STATUS: "Completed", percentage: 52.1, color: "#31111D"},
-      { STATUS: "Under Review", percentage: 22.8, color: "#630F3C" },
-      { STATUS: "For Revision", percentage: 13.9, color: "#7A1642" },
-      { STATUS: "Other", percentage: 11.2, color: " #FF2D55 " },
-    ],
-    tableData: {
-      HTEs: [
-        { DOC: "00001", COMPANY: "Christine Brooks", ADDRESS: "089 Kutch Green Apt. 448", DATE: "14 Feb 2019", business: "Electric", STATUS: "Completed" },
-        { DOC: "00002", COMPANY: "Rosie Pearson", ADDRESS: "979 Immanuel Ferry Suite 526", DATE: "14 Feb 2019", business: "Book", STATUS: "Processing" },
-        { DOC: "00003", COMPANY: "Darrell Caldwell", ADDRESS: "8587 Frida Ports", DATE: "14 Feb 2019", business: "Medicine", STATUS: "Rejected" },
-        { DOC: "00003", COMPANY: "Darrell Caldwell", ADDRESS: "8587 Frida Ports", DATE: "14 Feb 2019", business: "Medicine", STATUS: "Rejected" },
-        { DOC: "00003", COMPANY: "Darrell Caldwell", ADDRESS: "8587 Frida Ports", DATE: "14 Feb 2019", business: "Medicine", STATUS: "Rejected" },
-        { DOC: "00003", COMPANY: "Darrell Caldwell", ADDRESS: "8587 Frida Ports", DATE: "14 Feb 2019", business: "Medicine", STATUS: "Rejected" },
-      ],
-      "INDUSTRY PARTNERS": [
-        { DOC: "00004", COMPANY: "Tech Innovators", ADDRESS: "45 Silicon Valley", DATE: "10 Mar 2020", business: "Software", STATUS: "Active" },
-        { DOC: "00005", COMPANY: "Green Solutions", ADDRESS: "123 Eco Park", DATE: "20 Jan 2021", business: "Renewables", STATUS: "Inactive" },
-      ],
-      "OJT COORDINATORS": [
-        { DOC: "00006", COMPANY: "Alice Johnson", ADDRESS: "789 Training Ave", DATE: "05 May 2021", business: "OJT Management", STATUS: "Active" },
-        { DOC: "00007", COMPANY: "Mark Smith", ADDRESS: "567 Coordinator Lane", DATE: "15 Jul 2021", business: "OJT Oversight", STATUS: "Inactive" },
-        { DOC: "00003", COMPANY: "Darrell Caldwell", ADDRESS: "8587 Frida Ports", DATE: "14 Feb 2019", business: "Medicine", STATUS: "Rejected" },
-        { DOC: "00003", COMPANY: "Darrell Caldwell", ADDRESS: "8587 Frida Ports", DATE: "14 Feb 2019", business: "Medicine", STATUS: "Rejected" },
-        { DOC: "00003", COMPANY: "Darrell Caldwell", ADDRESS: "8587 Frida Ports", DATE: "14 Feb 2019", business: "Medicine", STATUS: "Rejected" },
-        { DOC: "00003", COMPANY: "Darrell Caldwell", ADDRESS: "8587 Frida Ports", DATE: "14 Feb 2019", business: "Medicine", STATUS: "Rejected" },
-
-      ],
-    },
-  };
-
   const [clickedCard, setClickedCard] = useState(null);
-  const [clickedCard, setClickedCard] = useState(null);
-  const [activeTab, setActiveTab] = useState('HTEs');
   const [selectedYear, setSelectedYear] = useState("2023");
   const [loading, setLoading] = useState(true);
   const [data, setData] = useState({
@@ -108,8 +48,8 @@ const Overview = () => {
           moaSTATUS: moaStatusRes.data,
           tableData: {
             HTEs: hteRes.data,
-            Industry: industryRes.data,
-            OJTCoordinators: ojtRes.data
+            "INDUSTRY PARTNERS": industryRes.data,
+            "OJT COORDINATORS": ojtRes.data
           }
         });
       } catch (error) {
@@ -122,72 +62,64 @@ const Overview = () => {
     fetchData();
   }, []);
 
+  // Chart configurations
   const doughnutIndustrycardData = {
-    labels: data.Industrypartnercard.map((STATUS) => `${STATUS.STATUS} ${STATUS.percentage}%`),
-    datasets: [
-      {
-        data: data.Industrypartnercard.map((STATUS) => STATUS.percentage),
-        backgroundColor: data.Industrypartnercard.map((STATUS) => STATUS.color),
-        hoverOffset: 5,
-      },
-    ],
+    labels: data.Industrypartnercard.map((item) => `${item.STATUS} ${item.percentage}%`),
+    datasets: [{
+      data: data.Industrypartnercard.map((item) => item.percentage),
+      backgroundColor: data.Industrypartnercard.map((item) => item.color),
+      hoverOffset: 5,
+    }],
   };
 
-  const doughnutndustrycardOptions = {
-    maintainAspectRatio: false, // Allow the chart to have custom height and width
-    aspectRatio: 1, // Defines the aspect ratio (1:1 means it's a circle)
+  const doughnutIndustrycardOptions = {
+    maintainAspectRatio: false,
+    aspectRatio: 1,
     responsive: true,
     plugins: {
       legend: {
-        position: "right", // Place legend to the right
+        position: "right",
         labels: {
           color: "white",
-          usePointStyle: true, // Use circular markers in legends
-          padding: 6, // Adjust padding between legend items
+          usePointStyle: true,
+          padding: 6,
         },
       },
     },
     elements: {
       arc: {
-        borderWidth: 7, // Set the border width between segments
-        borderColor: "#0000", // Set the border color between segments
+        borderWidth: 7,
+        borderColor: "#0000",
       },
     },
-    cutout: '50%',  // Increase to make the doughnut thinner and increase space between slices
+    cutout: '50%',
   };
 
-  // Function to format large numbers
   const formatNumber = (num) => {
-    if (num >= 1000) {
-      return (num / 1000) + 'k'; // Format as "200k"
-    }
-    return num;
+    return num >= 1000 ? `${num / 1000}k` : num;
   };
 
-  // Bar Chart Data and Options
   const barData = {
     labels: data.natureOfBusinesses.map((business) => business.business_type),
-    datasets: [
-      {
-        data: data.natureOfBusinesses.map((business) => business.count),
-        backgroundColor: '#31111D',
-        borderRadius: 5,
-        datalabels: {
-          align: "end",
-          color: "#FFFFFF",
-          font: { weight: "bold" },
-          offset: 4,
-          backgroundColor: "#31111D",
-          padding: 8,
-          borderRadius: 20,
-          formatter: (value) => formatNumber(value),
-        },
+    datasets: [{
+      data: data.natureOfBusinesses.map((business) => business.count),
+      backgroundColor: '#31111D',
+      borderRadius: 5,
+      datalabels: {
+        align: "end",
+        color: "#FFFFFF",
+        font: { weight: "bold" },
+        offset: 4,
+        backgroundColor: "#31111D",
+        padding: 8,
+        borderRadius: 20,
+        formatter: formatNumber,
       },
-    ],
+    }],
   };
 
   const barOptions = {
-    maintainAspectRatio: false, // Allow the chart to have custom height and width
+    maintainAspectRatio: false,
     responsive: true,
     plugins: {
       legend: { display: false },
@@ -203,39 +135,37 @@ const Overview = () => {
   };
 
   const doughnutData = {
-    labels: data.moaSTATUS.map((STATUS) => `${STATUS.STATUS} ${STATUS.percentage}%`),
-    datasets: [
-      {
-        data: data.moaSTATUS.map((STATUS) => STATUS.percentage),
-        backgroundColor: data.moaSTATUS.map((STATUS) => STATUS.color),
-        hoverOffset: 5,
-      },
-    ],
+    labels: data.moaSTATUS.map((item) => `${item.STATUS} ${item.percentage}%`),
+    datasets: [{
+      data: data.moaSTATUS.map((item) => item.percentage),
+      backgroundColor: data.moaSTATUS.map((item) => item.color),
+      hoverOffset: 5,
+    }],
   };
 
   const doughnutOptions = {
-    maintainAspectRatio: false, // Allow the chart to have custom height and width
-    aspectRatio: 1, // Defines the aspect ratio (1:1 means it's a circle)
+    maintainAspectRatio: false,
+    aspectRatio: 1,
     responsive: true,
     plugins: {
       legend: {
-        position: "right", // Place legend to the right
+        position: "right",
         labels: {
-          usePointStyle: true, // Use circular markers in legends
-          padding: 15, // Adjust padding between legend items
+          usePointStyle: true,
+          padding: 15,
           font: {
             weight: "bold",
-            size: 10, // Set font size for legend items
+            size: 10,
           },
         },
       },
     },
     elements: {
       arc: {
-        borderWidth: 7, // Set the border width between segments
+        borderWidth: 7,
       },
     },
-    cutout: '40%',  // Increase to make the doughnut thinner and increase space between slices
+    cutout: '40%',
   };
 
   const handleYearChange = (event) => {

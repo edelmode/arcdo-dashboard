@@ -1,30 +1,33 @@
-const mysql = require("mysql2");
-require("dotenv").config(); // Load .env file
+import mysql from 'mysql2/promise';
+import dotenv from 'dotenv';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
-// Ensure environment variables are loaded
-if (!process.env.DB_HOST || !process.env.DB_USER || !process.env.DB_PASS || !process.env.DB_NAME) {
-  console.error("Missing required database environment variables.");
-  process.exit(1); // Exit the app if credentials are missing
-}
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
-// Fix: Wrap `process.env.DB_HOST` in a string
-const connection = mysql.createConnection({
-  host: process.env.DB_HOST,       // Host from .env
-  user: process.env.DB_USER,       // Username from .env
-  password: process.env.DB_PASS, // Password from .env
-  database: process.env.DB_NAME,   // Database name from .env
-  ssl: {
-    rejectUnauthorized: true,      // Ensure secure transport
-  },
-});
+dotenv.config({ path: path.resolve(__dirname, '../.env') });
 
-// Test database connection
-connection.connect((err) => {
-  if (err) {
-    console.error("Failed to connect to database:", err.message);
-  } else {
-    console.log("✅ Connected to Azure MySQL database!");
-  }
-});
+const initializeConnection = async () => {
+    try {
+        const connectionConfig = {
+            host: process.env.DB_HOST,
+            user: process.env.DB_USER,
+            password: process.env.DB_PASS,
+            database: process.env.DB_NAME,
+        };
 
-module.exports = connection; // Export connection for use in server.js
+        if (!connectionConfig.user) {
+            throw new Error("Database user is missing! Check your .env file.");
+        }
+
+        const connection = await mysql.createConnection(connectionConfig);
+        console.log("✅ Successfully connected to the database!");
+        return connection;
+    } catch (err) {
+        console.error("❌ Database connection failed:", err.message);
+        throw err;
+    }
+};
+
+export default initializeConnection;

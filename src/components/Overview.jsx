@@ -1,75 +1,64 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Bar, Doughnut } from "react-chartjs-2";
 import { Chart as ChartJS, ArcElement, BarElement, Tooltip, Legend, CategoryScale, LinearScale } from "chart.js";
 import ChartDataLabels from 'chartjs-plugin-datalabels';
+import axios from 'axios';
 import { CornerRightUp, CornerLeftDown } from 'lucide-react';
-
 
 // Register the required components for Chart.js
 ChartJS.register(ArcElement, BarElement, Tooltip, Legend, CategoryScale, LinearScale, ChartDataLabels);
 
 const Overview = () => {
-  const [activeTab, setActiveTab] = useState("HTEs");
-  const [clickedBarIndex, setClickedBarIndex] = useState(null);
-  const [selectedYear, setSelectedYear] = useState("2020");
-
-  
-
-  const data = {
-    summaryCards: [
-      { title: "Host Training Establishments (HTEs)", value: "7265", change: "+11.01%" },
-      { title: "Memorandum of Agreements (MOAs)", value: "3671", change: "-0.03%" },
-      { title: "On-the-Job Training Coordinators", value: "256", change: "+15.03%" },
-      { title: "Industry Partners", value: "2318", change: "+6.08%" },
-    ],
-  Industrypartnercard: [
-    { STATUS: "NOB 1", percentage: 52.1, color: "#34C759" },
-    { STATUS: "NOB 2", percentage: 22.8, color: "#6750A4" },
-    { STATUS: "NOB 3", percentage: 13.9, color: "#FF2D55" },
-    { STATUS: "Other", percentage: 11.2, color: "#CE93D8" },
-  ],
-    
-
-    natureOfBusinesses: [
-      { category: "Banking", count: 160000 },
-      { category: "IT", count: 200000 },
-      { category: "BPO", count: 140000 },
-      { category: "MFG", count: 243000  },
-      { category: "Corporation", count: 180000  },
-      { category: "Other", count: 100000 },
-    ],
-    moaSTATUS: [
-      { STATUS: "Completed", percentage: 52.1, color: "#31111D"},
-      { STATUS: "Under Review", percentage: 22.8, color: "#630F3C" },
-      { STATUS: "For Revision", percentage: 13.9, color: "#7A1642" },
-      { STATUS: "Other", percentage: 11.2, color: " #FF2D55 " },
-    ],
-    tableData: {
-      HTEs: [
-        { DOC: "00001", COMPANY: "Christine Brooks", ADDRESS: "089 Kutch Green Apt. 448", DATE: "14 Feb 2019", business: "Electric", STATUS: "Completed" },
-        { DOC: "00002", COMPANY: "Rosie Pearson", ADDRESS: "979 Immanuel Ferry Suite 526", DATE: "14 Feb 2019", business: "Book", STATUS: "Processing" },
-        { DOC: "00003", COMPANY: "Darrell Caldwell", ADDRESS: "8587 Frida Ports", DATE: "14 Feb 2019", business: "Medicine", STATUS: "Rejected" },
-        { DOC: "00003", COMPANY: "Darrell Caldwell", ADDRESS: "8587 Frida Ports", DATE: "14 Feb 2019", business: "Medicine", STATUS: "Rejected" },
-        { DOC: "00003", COMPANY: "Darrell Caldwell", ADDRESS: "8587 Frida Ports", DATE: "14 Feb 2019", business: "Medicine", STATUS: "Rejected" },
-        { DOC: "00003", COMPANY: "Darrell Caldwell", ADDRESS: "8587 Frida Ports", DATE: "14 Feb 2019", business: "Medicine", STATUS: "Rejected" },
-      ],
-      "INDUSTRY PARTNERS": [
-        { DOC: "00004", COMPANY: "Tech Innovators", ADDRESS: "45 Silicon Valley", DATE: "10 Mar 2020", business: "Software", STATUS: "Active" },
-        { DOC: "00005", COMPANY: "Green Solutions", ADDRESS: "123 Eco Park", DATE: "20 Jan 2021", business: "Renewables", STATUS: "Inactive" },
-      ],
-      "OJT COORDINATORS": [
-        { DOC: "00006", COMPANY: "Alice Johnson", ADDRESS: "789 Training Ave", DATE: "05 May 2021", business: "OJT Management", STATUS: "Active" },
-        { DOC: "00007", COMPANY: "Mark Smith", ADDRESS: "567 Coordinator Lane", DATE: "15 Jul 2021", business: "OJT Oversight", STATUS: "Inactive" },
-        { DOC: "00003", COMPANY: "Darrell Caldwell", ADDRESS: "8587 Frida Ports", DATE: "14 Feb 2019", business: "Medicine", STATUS: "Rejected" },
-        { DOC: "00003", COMPANY: "Darrell Caldwell", ADDRESS: "8587 Frida Ports", DATE: "14 Feb 2019", business: "Medicine", STATUS: "Rejected" },
-        { DOC: "00003", COMPANY: "Darrell Caldwell", ADDRESS: "8587 Frida Ports", DATE: "14 Feb 2019", business: "Medicine", STATUS: "Rejected" },
-        { DOC: "00003", COMPANY: "Darrell Caldwell", ADDRESS: "8587 Frida Ports", DATE: "14 Feb 2019", business: "Medicine", STATUS: "Rejected" },
-
-      ],
-    },
-  };
-
   const [clickedCard, setClickedCard] = useState(null);
+  const [activeTab, setActiveTab] = useState('HTEs');
+  const [selectedYear, setSelectedYear] = useState("2023");
+  const [loading, setLoading] = useState(true);
+  const [data, setData] = useState({
+    summaryCards: [],
+    Industrypartnercard: [],
+    natureOfBusinesses: [],
+    moaSTATUS: [],
+    tableData: { HTEs: [], Industry: [], OJTCoordinators: [] }
+  });
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        setLoading(true);
+        const [summaryRes, businessRes, moaStatusRes, hteRes, industryRes, ojtRes] = await Promise.all([
+          axios.get('http://localhost:3001/api/summary-counts'),
+          axios.get('http://localhost:3001/api/business-counts'),
+          axios.get('http://localhost:3001/api/moa-status'),
+          axios.get('http://localhost:3001/api/hte'),
+          axios.get('http://localhost:3001/api/industry_partner'),
+          axios.get('http://localhost:3001/api/ojt_coordinator')
+        ]);
+
+        setData({
+          summaryCards: [
+            { title: "Host Training Establishments (HTEs)", value: summaryRes.data.hte.toString(), change: "+14%" },
+            { title: "Memorandum of Agreements (MOAs)", value: summaryRes.data.moa.toString(), change: "+20%" },
+            { title: "On-the-Job Training Coordinators", value: summaryRes.data.ojt.toString(), change: "-5%" },
+            { title: "Industry Partners", value: summaryRes.data.industry.toString(), change: "+10%" }
+          ],
+          Industrypartnercard: moaStatusRes.data,
+          natureOfBusinesses: businessRes.data,
+          moaSTATUS: moaStatusRes.data,
+          tableData: {
+            HTEs: hteRes.data,
+            Industry: industryRes.data,
+            OJTCoordinators: ojtRes.data
+          }
+        });
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   const doughnutIndustrycardData = {
     labels: data.Industrypartnercard.map((STATUS) => `${STATUS.STATUS} ${STATUS.percentage}%`),
@@ -115,30 +104,21 @@ const Overview = () => {
 
   // Bar Chart Data and Options
   const barData = {
-    labels: data.natureOfBusinesses.map((business) => business.category),
+    labels: data.natureOfBusinesses.map((business) => business.business_type),
     datasets: [
       {
-        label: "Nature of Businesses",
         data: data.natureOfBusinesses.map((business) => business.count),
-        backgroundColor: data.natureOfBusinesses.map((business, index) =>
-          index === clickedBarIndex ? "#31111D" : "#FFD8E4"
-        ), // Change color of clicked bar
-        barThickness: 70,
-        borderRadius: 16,
-        // Add custom options for data labels
+        backgroundColor: '#31111D',
+        borderRadius: 5,
         datalabels: {
-          display: (context) => context.dataIndex === clickedBarIndex, // Show label only for the clicked bar
-          anchor: "end",
           align: "end",
           color: "#FFFFFF",
-          font: {
-            weight: "bold",
-          },
-          offset: 4, // Adjusted space between the label and the top of the bar
-          backgroundColor: "#31111D", // Background color for the label
-          padding: 8, // Padding around the label text
-          borderRadius: 20, // Rounded corners for the background
-          formatter: (value) => formatNumber(value), // Format numbers here
+          font: { weight: "bold" },
+          offset: 4,
+          backgroundColor: "#31111D",
+          padding: 8,
+          borderRadius: 20,
+          formatter: (value) => formatNumber(value),
         },
       },
     ],
@@ -147,62 +127,18 @@ const Overview = () => {
   const barOptions = {
     responsive: true,
     plugins: {
-      legend: {
-        display: false, // Hide legend for Bar chart
-      },
+      legend: { display: false },
       datalabels: {
-        anchor: "end", // Position the label at the top of the bar
-        align: "end",  // Align the label to the end (top) of the bar
-        font: {
-          weight: "bold", // Set font weight for labels
-          size: 20, // Set font size for labels 
-        },
-       
-        backgroundColor: "#FF6347", // Background color for the label
-        borderRadius: 5, // Rounded corners for the background
-        
+        anchor: 'end',
+        align: 'end',
       },
     },
     scales: {
-      y: {
-        ticks: {
-          display: false, // Hide Y-axis labels
-        },
-        grid: {
-          display: false, // Hide Y-axis grid lines
-        },
-        border: {
-          display: false,  // Remove y-axis line
-        },
-      },
-      x: {
-        grid: {
-          display: false, // Hide X-axis grid lines
-        },
-        border: {
-          display: false,  // Remove x-axis line
-        },
-      },
-    },
-    layout: {
-      padding: {
-        top: 40,
-        bottom: 3,
-        left: 10,
-        right: 10,
-      },
-    },
-    onClick: (event, elements) => {
-      if (elements.length > 0) {
-        const index = elements[0].index;
-        setClickedBarIndex(index === clickedBarIndex ? null : index); // Toggle clicked state
-      }
+      x: { ticks: { color: 'white' } },
+      y: { ticks: { color: 'white' } }
     },
   };
 
-
-
-  // Doughnut Chart Data and Options
   const doughnutData = {
     labels: data.moaSTATUS.map((STATUS) => `${STATUS.STATUS} ${STATUS.percentage}%`),
     datasets: [
@@ -242,6 +178,10 @@ const Overview = () => {
   const handleYearChange = (event) => {
     setSelectedYear(event.target.value);
   };
+
+  if (loading) {
+    return <div className="ml-[250px] mt-10 p-7">Loading...</div>;
+  }
 
   return (
 <div className="bg-gray-50 ml-[250px] mt-10 p-7 h-screen overflow-hidden">
@@ -389,14 +329,6 @@ const Overview = () => {
       );
     })}
   </div>
-
-
-
-
-
-
-
-
 
       {/* Nature of Businesses and MOA STATUS */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-1">

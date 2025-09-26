@@ -22,7 +22,6 @@ export default function HomeNavbar() {
     { name: "MOAs", icon: <FolderClosed className="h-5 w-5" />, path: "/moas" },
     { name: "OJT Coordinators", icon: <Contact className="h-5 w-5" />, path: "/OJT coordinators" },
     { name: "Industry Partners", icon: <Handshake className="h-5 w-5" />, path: "/Industry partners" },
-    { name: "Account", icon: <User className="h-5 w-5" />, path: "/Admin account" },
   ];
 
   const toggleDropdown = () => {

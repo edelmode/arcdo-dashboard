@@ -1,4 +1,4 @@
-# 🎓 ARCDO Dashboard (Frontend)
+# ARCDO Dashboard (Frontend)
 
 The **Alumni Relations and Career Development Office (ARCDO) Dashboard** is a web-based platform designed to improve **data management for institutional records**. This dashboard centralizes information related to:
 
@@ -38,3 +38,12 @@ This repository contains the **frontend only** of the project, developed as part
 ```bash
 git clone https://github.com/edelmode/arcdo-dashboard.git
 cd arcdo-dashboard
+
+2️⃣ Install Dependencies
+npm install
+
+3️⃣ Run the Development Server
+npm run dev
+
+The app will be available at:
+👉 http://localhost:5173

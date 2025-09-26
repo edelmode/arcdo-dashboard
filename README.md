@@ -38,12 +38,16 @@ This repository contains the **frontend only** of the project, developed as part
 ```bash
 git clone https://github.com/edelmode/arcdo-dashboard.git
 cd arcdo-dashboard
-
-2️⃣ Install Dependencies
+```
+### 2️⃣ Install Dependencies
+```bash
 npm install
+```
 
-3️⃣ Run the Development Server
+### 3️⃣ Run the Development Server
+```bash
 npm run dev
+```
 
-The app will be available at:
+#### The app will be available at:
 👉 http://localhost:5173

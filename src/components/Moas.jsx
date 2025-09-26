@@ -84,7 +84,7 @@ export default function HTEDashboard() {
   };
 
   return (
-        <div className="bg-gray-50 md:ml-[250px] mt-10 p-7 min-h-screen overflow-auto">
+        <div className="bg-gray-50 md:ml-[300px] mt-10 p-7 min-h-screen overflow-auto">
         <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold mb-4 mt-3">Memorandum of Agreements</h1>
         <div className="mb-3">
           <div className="flex flex-wrap items-center gap-2 md:gap-4 bg-gray-50 border border-gray-200 rounded-lg p-3 w-full md:w-fit">

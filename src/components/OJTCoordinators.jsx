@@ -57,8 +57,8 @@ export default function OJTCoordinators() {
   };
 
   return (
-    <div className="bg-gray-50 md:ml-[250px] mt-10 p-7 min-h-screen overflow-auto">
-          <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold mb-4 mt-3">OJT Coordinators</h1>
+        <div className="bg-gray-50 md:ml-[300px] mt-10 p-7 min-h-screen overflow-auto">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-semibold mb-4 mt-3">OJT Coordinators</h1>
           <div className="mb-3">
             <div className="flex flex-wrap sm:flex-nowrap items-center gap-2 sm:gap-4 bg-gray-50 border border-gray-200 rounded-lg p-2 w-full sm:w-fit">
               {/* Filter Icon */}
@@ -165,13 +165,14 @@ export default function OJTCoordinators() {
       </div>
 
       {/* Pagination Section */}
-      <div className="flex justify-start items-center mt-4">
-        <button
-          onClick={handlePrevious}
-          disabled={currentPage === 1}
-          className="px-3 py-1 border rounded-lg hover:bg-gray-200"
-        >
-          ←
+      <div className="flex flex-col md:flex-row justify-between items-center mt-3">
+        <div className="flex space-x-2">
+          <button
+            onClick={handlePrevious}
+            disabled={currentPage === 1}
+            className="px-3 py-1 border rounded-lg hover:bg-gray-200"
+          >
+            ←
         </button>
         <button
           onClick={handleNext}
@@ -180,11 +181,13 @@ export default function OJTCoordinators() {
         >
           →
         </button>
+        </div>
         <span className="text-gray-500">
           Showing <b>{startIndex + 1}</b> to <b>{Math.min(endIndex, filteredCoordinators.length)}</b> of{" "}
           <b>{filteredCoordinators.length}</b>
         </span>
       </div>
+
 
 
     </div>

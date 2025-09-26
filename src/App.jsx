@@ -9,6 +9,8 @@ import OverviewPage from './pages/OverviewPage';
 import AdminProfile from './components/AdminProfile';
 import CreateAccount from './components/CreateAccount';
 import AddDataPage from './pages/AddDataPage';
+import AbouttheDeveloperPage from './pages/AbouttheDeveloperPage';
+
 
 
 
@@ -21,6 +23,7 @@ function App() {
             <Route path="/moas" element={<MoasPage />} />
             <Route path="/OJT coordinators" element={<OJTCoordinatorsPage />} />
             <Route path="/Industry partners" element={<IndustryPartnersPage />} />
+            <Route path="/about the developer" element={<AbouttheDeveloperPage />} />
             <Route path="/overview" element={<OverviewPage />} />
             <Route path="/login" element={<LandingPage />} />
             <Route path="/adminprofile" element={<AdminProfile />} />

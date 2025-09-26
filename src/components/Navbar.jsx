@@ -1,6 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
 import {
-  Sun,
   RotateCcw,
   CirclePlus,
   Search,
@@ -80,11 +79,6 @@ export default function NavbarTopConfigurationPage() {
         <ul className="hidden lg:flex items-center space-x-5">
           <li>
             <button className="text-md text-black hover:text-red-800 transition duration-300">
-              <Sun className="h-5 w-5" />
-            </button>
-          </li>
-          <li>
-            <button className="text-md text-black hover:text-red-800 transition duration-300">
               <RotateCcw className="h-5 w-5" />
             </button>
           </li>
@@ -112,12 +106,6 @@ export default function NavbarTopConfigurationPage() {
               className="absolute right-3 top-12 bg-white rounded-lg shadow-lg p-3"
             >
               <ul className="space-y-3">
-                <li>
-                  <button className="flex items-center text-black hover:text-red-800 transition duration-300">
-                    <Sun className="h-5 w-5 mr-2" />
-                    <span>Light Mode</span>
-                  </button>
-                </li>
                 <li>
                   <button className="flex items-center text-black hover:text-red-800 transition duration-300">
                     <RotateCcw className="h-5 w-5 mr-2" />

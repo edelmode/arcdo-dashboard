@@ -54,7 +54,7 @@ const AddData = () => {
   };
 
   return (
-    <div className="bg-gray-50 md:ml-[250px] mt-10 p-7 min-h-screen overflow-auto">
+    <div className="bg-gray-50 md:ml-[300px] mt-10 p-7 min-h-screen overflow-auto">
         <p><b> Add Data</b></p>
       <form onSubmit={handleSubmit} className="space-y-4">
         {/* Dropdown to select form type */}

@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { Link, useNavigate, NavLink, useLocation } from "react-router-dom";
-import { ChartPie, FolderClosed, User, NotebookTabs, Contact, Handshake, LogOut, PanelsTopLeft, Menu } from "lucide-react";
+import { ChartPie, FolderClosed, User, NotebookTabs, Contact, Handshake, LogOut, PanelsTopLeft, Menu, Bot } from "lucide-react";
 import AdminProfile from "./AdminProfile";
 
 export default function HomeNavbar() {
@@ -22,6 +22,8 @@ export default function HomeNavbar() {
     { name: "MOAs", icon: <FolderClosed className="h-5 w-5" />, path: "/moas" },
     { name: "OJT Coordinators", icon: <Contact className="h-5 w-5" />, path: "/OJT coordinators" },
     { name: "Industry Partners", icon: <Handshake className="h-5 w-5" />, path: "/Industry partners" },
+        { name: "The Developer", icon: <Bot className="h-5 w-5" />, path: "/about the developer" }
+
   ];
 
   const toggleDropdown = () => {
@@ -70,8 +72,8 @@ export default function HomeNavbar() {
         className="flex items-center max-w-full sm:mt-0"
       >
       {/* Hide Logo on Small Screens */}
-        <img src="/favicon.png" alt="Website Logo" className="w-[2.75rem] h-[2.75rem] hidden lg:block" />
-        <p className="pl-3 font-extrabold hidden sm:block">ARCDO</p>
+        <img src="public/pup-logo.png" alt="Website Logo" className="w-[2.75rem] h-[2.75rem] hidden lg:block" />
+        <p className="pl-3 font-extrabold hidden sm:block">ARCDO Dashboard</p>
 
 
 

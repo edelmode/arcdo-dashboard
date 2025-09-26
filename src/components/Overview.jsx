@@ -24,10 +24,10 @@ const Overview = () => {
       { title: "Industry Partners", value: "2318", change: "+6.08%" },
     ],
   Industrypartnercard: [
-    { STATUS: "NOB 1", percentage: 52.1, color: "#34C759" },
-    { STATUS: "NOB 2", percentage: 22.8, color: "#6750A4" },
-    { STATUS: "NOB 3", percentage: 13.9, color: "#FF2D55" },
-    { STATUS: "Other", percentage: 11.2, color: "#CE93D8" },
+    { STATUS: "NOB 1", percentage: 52.1, color: "#FFD60A" }, // bright golden yellow
+    { STATUS: "NOB 2", percentage: 22.8, color: "#FFB703" }, // sunflower yellow
+    { STATUS: "NOB 3", percentage: 13.9, color: "#E9A800" }, // deep mustard yellow
+    { STATUS: "Other", percentage: 11.2, color: "#FFF3B0" }, // soft pastel yellow
   ],
     
 
@@ -247,7 +247,7 @@ const Overview = () => {
   
 
   return (
-<div className="bg-gray-50 md:ml-[250px] mt-10 p-7 min-h-screen overflow-auto">
+<div className="bg-gray-50 md:ml-[300px] mt-10 p-7 min-h-screen overflow-auto">
   {/* Summary Cards */}
   <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mb-1 relative">
     {data.summaryCards.map((card, index) => {
@@ -452,18 +452,6 @@ const Overview = () => {
             ))}
           </div>
           
-          {/* Year Dropdown */}
-          <select
-            value={selectedYear}
-            onChange={handleYearChange}
-            className="py-1 px-4 mb-3 border rounded-md text-gray-700 hover:border-red-500 focus:outline-none focus:ring-2 focus:ring-red-900 focus:border-red-900 hidden sm:block" 
-          >
-            {[2020, 2021, 2022, 2023, 2024, 2025, 2026].map((year) => (
-              <option key={year} value={year}>
-                {year}
-              </option>
-            ))}
-          </select>
         </div>
 
         {/* Table */}

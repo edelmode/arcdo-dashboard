@@ -1,36 +1,40 @@
-To resolve the issue, please provide more details about the problem you are encountering. For example, are you experiencing an error message, or do you need help with a specific markdown syntax? Here is a basic template for a README.md file to get you started:
+# 🎓 ARCDO Dashboard (Frontend)
 
-```markdown
-# Project Title
+The **Alumni Relations and Career Development Office (ARCDO) Dashboard** is a web-based platform designed to improve **data management for institutional records**. This dashboard centralizes information related to:
 
-A brief description of what this project does and who it's for.
+- **Host Training Establishments (HTEs)**
+- **Memorandum of Agreements (MOAs)**
+- **On-the-Job Training (OJT) Coordinators**
+- **Industry Partners (IPs)**
 
-## Installation
+It also provides an **authentication page** and an **account modal** where users can edit their profile.  
+This repository contains the **frontend only** of the project, developed as part of the **ARCDO-PUP initiatives**.  
 
-Instructions on how to install and set up the project.
+---
 
+## ✨ Features
+- 📊 **Dashboard Pages**:  
+  - Host Training Establishments (HTEs)  
+  - Memorandum of Agreements (MOAs)  
+  - On-the-Job Training (OJT) Coordinators  
+  - Industry Partners (IPs)  
+  - Developers Page  
+- 🔐 **Authentication Page**  
+- 👤 **Account Modal** (Profile editing)  
+- 📱 **Fully Responsive Design** (works across devices)
+
+---
+
+## 🛠️ Tech Stack
+- **React.js** (Frontend framework)  
+- **Vite** (Development environment)  
+- **Tailwind CSS** (Styling)  
+
+---
+
+## 🚀 Getting Started
+
+### 1️⃣ Clone the Repository
 ```bash
-# Example command
-git clone https://github.com/yourusername/yourproject.git
-cd yourproject
-```
-
-## Usage
-
-Instructions on how to use the project.
-
-```bash
-# Example command
-npm start
-```
-
-## Contributing
-
-Guidelines for contributing to the project.
-
-## License
-
-Information about the project's license.
-```
-
-Feel free to modify the template according to your project's requirements.
+git clone https://github.com/edelmode/arcdo-dashboard.git
+cd arcdo-dashboard

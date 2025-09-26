@@ -13,7 +13,8 @@ This repository contains the **frontend only** of the project, developed as part
 ---
 
 ## ✨ Features
-- 📊 **Dashboard Pages**:  
+- 📊 **Main Dashboard Page**(Summary and visual overview of all records in all the pages)
+- **Dashboard Pages**:  
   - Host Training Establishments (HTEs)  
   - Memorandum of Agreements (MOAs)  
   - On-the-Job Training (OJT) Coordinators  

@@ -15,6 +15,7 @@
     "chart.js": "^4.4.7",
     "chartjs-plugin-datalabels": "^2.2.0",
     "fontawesome-free": "^1.0.4",
+    "framer-motion": "^12.23.22",
     "lucide-react": "^0.453.0",
     "react": "^18.3.1",
     "react-chartjs-2": "^5.3.0",
@@ -36,6 +37,6 @@
     "globals": "^15.9.0",
     "postcss": "^8.4.47",
     "tailwindcss": "^3.4.14",
-    "vite": "^5.4.14"
+    "vite": "^6.3.6"
   }
 }

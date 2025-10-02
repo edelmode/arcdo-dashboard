@@ -5,19 +5,19 @@ const teamSections = [
   { 
     title: "UI/UX", 
     names: ["Gian Carlo B. Estrella"],
-    images: ["/Public/gian.jpg"],
+    images: ["/gian.jpg"],
     descriptions: ["I'm Gian, I love mixing design concepts and I'm a member of the one-man UI/UX Team that designed the ARCDO Dashboard."]
   },
   { 
     title: "Database Administrator", 
     names: ["Carla Jeanne B. Goleña"],
-    images: ["/Public/carla.jpg"],
+    images: ["/carla.jpg"],
     descriptions: ["I'm Carla, I specialize in database management and backend integration. I designed and managed the database for the ARCDO Dashboard, ensuring seamless connectivity with the backend."]
   },
   { 
     title: "Front End Developers", 
     names: ["Edel Mae T. Tapar", "Ahijah Reign M. Reyes", "Noah B. Dorado"],
-    images: ["/Public/Del.jpg", "/Public/reign.png", "/Public/nowi.png"],
+    images: ["/Del.jpg", "/reign.png", "/nowi.png"],
     descriptions: [
       "Hello! I’m Del, a member of the front-end dev team. I developed the main dashboard page, the developer page, and the account page. I also made adjustments and facilitate other pages and ensured that the entire platform is fully responsive and accessible across different devices.",
       "I'm Reign, part of the front-end dev team for the ARCDO website. I help build and refine the user interface to keep things smooth and functional.",
@@ -27,7 +27,7 @@ const teamSections = [
   { 
     title: "Back End Developers", 
     names: ["Rowel B. Dacut", "Christine S. Ilagan", "Nathaniel Kingsley Pulan", "Edrian Infante"],
-    images: ["/Public/rowel.png", "/Public/tine.png", "/Public/nath.jpg", "/Public/ed.jpg"],
+    images: ["/rowel.png", "/tine.png", "/nath.jpg", "/ed.jpg"],
     descriptions: [
       "I'm Rowel Pogi, a Backend Developer working on the ARCDO Dashboard. My role includes managing data and fetching data for the Overview section.",
       "I'm Christine, a Back-End Developer for the ARCDO Dashboard. I handle data fetching, backend functions, and feature implementation.",

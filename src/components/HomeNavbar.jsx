@@ -22,7 +22,7 @@ export default function HomeNavbar() {
     { name: "MOAs", icon: <FolderClosed className="h-5 w-5" />, path: "/moas" },
     { name: "OJT Coordinators", icon: <Contact className="h-5 w-5" />, path: "/OJT coordinators" },
     { name: "Industry Partners", icon: <Handshake className="h-5 w-5" />, path: "/Industry partners" },
-        { name: "The Developer", icon: <Bot className="h-5 w-5" />, path: "/about the developer" }
+    { name: "The Developer", icon: <Bot className="h-5 w-5" />, path: "/about the developer" }
 
   ];
 
@@ -72,7 +72,7 @@ export default function HomeNavbar() {
         className="flex items-center max-w-full sm:mt-0"
       >
       {/* Hide Logo on Small Screens */}
-        <img src="public/pup-logo.png" alt="Website Logo" className="w-[2.75rem] h-[2.75rem] hidden lg:block" />
+        <img src="/pup-logo.png" alt="Website Logo" className="w-[2.75rem] h-[2.75rem] hidden lg:block" />
         <p className="pl-3 font-extrabold hidden sm:block">ARCDO Dashboard</p>
 
 

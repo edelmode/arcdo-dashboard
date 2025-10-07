@@ -13,7 +13,7 @@ This repository contains the **frontend only** of the project, developed as part
 ---
 
 ## ✨ Features
-- 📊 **Main Dashboard Page** (Summary and visual overview of all records in all the pages)
+- 📊 **Main Dashboard Page - Overview Page** (Summary and visual overview of all records in all the pages)
 - **Dashboard Pages**:  
   - Host Training Establishments (HTEs)  
   - Memorandum of Agreements (MOAs)  
@@ -22,14 +22,15 @@ This repository contains the **frontend only** of the project, developed as part
   - Developers Page  
 - 🔐 **Authentication Page**  
 - 👤 **Account Modal** (Profile editing)  
-- 📱 **Fully Responsive Design** (works across devices)
+- 📱 **Fully Responsive Design** (works across different devices)
 
 ---
 
 ## 🛠️ Tech Stack
 - **React.js** (Frontend framework)  
 - **Vite** (Development environment)  
-- **Tailwind CSS** (Styling)  
+- **Tailwind CSS** (Styling)
+- **Vercel** (Deployment and hosting platform)
 
 ---
 
